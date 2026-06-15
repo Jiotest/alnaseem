@@ -13635,6 +13635,19 @@ async function pushToGitHub(){
     sts.textContent='رفع البيانات…';
     const ok=await pushFile(cfg.token,cfg.user,cfg.repo,'data.json',dataJson,'🔄 Update villa data');
     if(!ok)throw new Error('فشل رفع data.json — تحقق من التوكن');
+    
+    // Also rebuild index.html with embedded data so view page is instant
+    sts.textContent='تحديث صفحة العرض…';
+    try{
+      const viewResp=await fetch('https://raw.githubusercontent.com/'+cfg.user+'/'+cfg.repo+'/main/index.html?v='+Date.now(),{cache:'no-store'});
+      if(viewResp.ok){
+        let viewHtml=await viewResp.text();
+        // Replace EMBEDDED data
+        viewHtml=viewHtml.replace(/const EMBEDDED = \[.*?\];/s,'const EMBEDDED = '+dataJson+';');
+        await pushFile(cfg.token,cfg.user,cfg.repo,'index.html',viewHtml,'🔄 Embed latest data in view page');
+      }
+    }catch(e){/* non-critical */}
+    
     icon.textContent='✅';txt.textContent='تم الحفظ!';sts.textContent='يظهر للجميع فوراً ✓';
     showToast('✅ تم الحفظ على GitHub!');
     setTimeout(()=>{icon.textContent='☁️';txt.textContent='حفظ على GitHub';sts.textContent='';btn.disabled=false;},3000);
