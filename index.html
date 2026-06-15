@@ -139,16 +139,19 @@ function ae(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')tip.style.display='none';});
 
-// Load SVG from separate file
+// Show stats immediately, load SVG in background
+ac(); us();
+document.getElementById('loading').style.display='none';
+document.getElementById('mc').innerHTML='<div style="display:flex;align-items:center;justify-content:center;min-height:400px;color:#78716C;flex-direction:column;gap:10px"><div style="width:30px;height:30px;border:3px solid rgba(181,146,42,.2);border-top-color:#B5922A;border-radius:50%;animation:sp .8s linear infinite"></div><div style="font-size:12px">جاري تحميل الخريطة…</div></div>';
+
 fetch('map.svg')
   .then(r=>r.text())
   .then(svgText=>{
     document.getElementById('mc').innerHTML=svgText;
-    ac(); ae(); us();
-    document.getElementById('loading').style.display='none';
+    ac(); ae();
   })
   .catch(err=>{
-    document.getElementById('loading').innerHTML='<div style="color:white;padding:20px;text-align:center">خطأ في تحميل الخريطة<br><small>'+err.message+'</small></div>';
+    document.getElementById('mc').innerHTML='<div style="padding:40px;text-align:center;color:#C0392B">⚠️ فشل تحميل الخريطة</div>';
   });
 </script>
 </body></html>
