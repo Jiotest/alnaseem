@@ -2,178 +2,188 @@
 <html dir="rtl" lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>حي النسيم — لوحة الإدارة</title>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--sand:#F7F3EE;--sand2:#EDE8E0;--stone:#C8BFB0;--ink:#1C1917;--ink2:#44403C;--ink3:#78716C;--gold:#B5922A;--gold-lt:#F0E0B0;--gold-dk:#8A6D1A;--green:#2D6A1F;--green-lt:#D4EDCA;--red:#C0392B;--red-lt:#FADDDA;--amber:#D4880A;--amber-lt:#FDF0D5;--slate:#6B8BA4;--slate-lt:#E4EEF5;--white:#fff;--radius:10px;--radius-lg:16px;--shadow-lg:0 8px 40px rgba(0,0,0,.14);--trans:all .18s cubic-bezier(.4,0,.2,1)}
+:root{--sand:#F7F3EE;--sand2:#EDE8E0;--ink:#1C1917;--ink3:#78716C;--gold:#B5922A;--gold-lt:#F0E0B0;--gold-dk:#8A6D1A;--green:#2D6A1F;--green-lt:#D4EDCA;--red:#C0392B;--red-lt:#FADDDA;--amber:#D4880A;--amber-lt:#FDF0D5;--slate:#6B8BA4;--slate-lt:#E4EEF5;--white:#fff;--r:10px;--rlg:16px;--sh:0 4px 20px rgba(0,0,0,.1);--tr:all .15s ease}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Tajawal',sans-serif;background:var(--sand);color:var(--ink);direction:rtl;height:100vh;overflow:hidden}
 #app{display:flex;height:100vh}
-#sidebar{width:360px;min-width:300px;background:var(--white);display:flex;flex-direction:column;border-left:1px solid var(--sand2);box-shadow:-4px 0 24px rgba(0,0,0,.06);z-index:10;flex-shrink:0}
-#map-side{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--sand)}
-.sb-brand{padding:14px 16px 12px;background:var(--ink);position:relative;overflow:hidden;flex-shrink:0}
-.sb-brand::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold-dk))}
-.sb-logo{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.sb-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold-dk));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.sb-logo-text{font-size:16px;font-weight:800;color:var(--white)}
-.sb-logo-sub{font-size:11px;color:var(--stone);font-weight:300}
-.sb-stats{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
-.sss{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:5px 10px;font-size:11px;color:rgba(255,255,255,.6);text-align:center}
-.sss b{display:block;font-size:15px;font-weight:700;color:var(--white)}
-.sss b.g{color:#7EC860}.sss b.r{color:#F08070}.sss b.a{color:var(--gold)}
-#gh-save-btn{width:100%;padding:9px;background:linear-gradient(135deg,#238636,#196127);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px;transition:opacity .15s}
-#gh-save-btn:disabled{opacity:.6;cursor:not-allowed}
-#gh-status{font-size:10px;text-align:center;margin-top:4px;height:14px;color:rgba(255,255,255,.5)}
-.tabs{display:flex;border-bottom:1px solid var(--sand2);background:var(--white);flex-shrink:0}
-.tab{flex:1;padding:12px 4px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;color:var(--ink3);border-bottom:2px solid transparent;transition:var(--trans);font-family:inherit}
-.tab:hover{color:var(--gold);background:var(--sand)}
-.tab.active{color:var(--gold-dk);border-bottom-color:var(--gold);font-weight:700}
-.search-box{padding:12px 14px;border-bottom:1px solid var(--sand2);background:var(--sand);flex-shrink:0}
-.si-wrap{position:relative;margin-bottom:7px}
-.si-wrap input{width:100%;padding:8px 34px 8px 12px;border:1.5px solid var(--sand2);border-radius:var(--radius);background:var(--white);font-size:13px;font-family:inherit;color:var(--ink);direction:rtl;transition:var(--trans)}
-.si-wrap input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-lt)}
-.si-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none}
-.fsel{width:100%;padding:7px 10px;border:1.5px solid var(--sand2);border-radius:var(--radius);background:var(--white);font-size:12px;font-family:inherit;color:var(--ink);cursor:pointer;transition:var(--trans)}
+/* Sidebar */
+#sb{width:360px;min-width:300px;background:var(--white);display:flex;flex-direction:column;border-left:1px solid var(--sand2);box-shadow:-2px 0 16px rgba(0,0,0,.06);z-index:10;flex-shrink:0}
+/* Brand */
+.brand{padding:14px 16px 12px;background:var(--ink);flex-shrink:0;border-bottom:3px solid var(--gold)}
+.blogo{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bicon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold-dk));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.btitle{font-size:16px;font-weight:800;color:#fff}.bsub{font-size:10px;color:#C8BFB0}
+.bstats{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.bs{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:4px 9px;font-size:10px;color:rgba(255,255,255,.55);text-align:center}
+.bs b{display:block;font-size:14px;font-weight:700;color:#fff}
+/* GitHub save button */
+#gh-btn{width:100%;padding:9px;background:linear-gradient(135deg,#238636,#196127);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px}
+#gh-btn:disabled{opacity:.6;cursor:not-allowed}
+#gh-sts{font-size:10px;text-align:center;margin-top:4px;height:14px;color:rgba(255,255,255,.45)}
+/* Tabs */
+.tabs{display:flex;border-bottom:1px solid var(--sand2);flex-shrink:0}
+.tab{flex:1;padding:11px 4px;text-align:center;font-size:12px;font-weight:500;cursor:pointer;color:var(--ink3);border-bottom:2px solid transparent;transition:var(--tr);background:none;border-top:none;border-left:none;border-right:none;font-family:inherit}
+.tab.on{color:var(--gold-dk);border-bottom-color:var(--gold);font-weight:700}
+/* Search */
+.sbox{padding:10px 12px;border-bottom:1px solid var(--sand2);background:var(--sand);flex-shrink:0}
+.sw{position:relative;margin-bottom:7px}
+.sw input{width:100%;padding:7px 32px 7px 10px;border:1.5px solid var(--sand2);border-radius:var(--r);background:var(--white);font-size:12px;font-family:inherit;color:var(--ink);direction:rtl}
+.sw input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-lt)}
+.si{position:absolute;right:9px;top:50%;transform:translateY(-50%);color:var(--ink3);pointer-events:none;font-size:13px}
+.fsel{width:100%;padding:7px 10px;border:1.5px solid var(--sand2);border-radius:var(--r);background:var(--white);font-size:12px;font-family:inherit;color:var(--ink);cursor:pointer}
 .fsel:focus{outline:none;border-color:var(--gold)}
-#villa-list{flex:1;overflow-y:auto;padding:6px 8px;min-height:0}
-#villa-list::-webkit-scrollbar{width:4px}
-#villa-list::-webkit-scrollbar-thumb{background:var(--sand2);border-radius:4px}
-.vrow{display:flex;align-items:center;padding:9px 12px;gap:10px;border-radius:var(--radius);cursor:pointer;transition:var(--trans);margin-bottom:2px;border:1.5px solid transparent}
-.vrow:hover{background:var(--sand);border-color:var(--sand2)}
-.vrow.selected{background:var(--gold-lt);border-color:var(--gold)}
-.vrow-num{font-size:14px;font-weight:800;color:var(--gold-dk);min-width:42px}
-.vrow-name{flex:1;font-size:12px;color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.pill{display:inline-block;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
-.pill-m{background:var(--green-lt);color:var(--green)}.pill-n{background:var(--red-lt);color:var(--red)}
-.pill-res{background:var(--amber-lt);color:var(--amber)}.pill-av,.pill-u{background:var(--slate-lt);color:var(--slate)}
-.export-bar{padding:10px 12px;border-top:1px solid var(--sand2);display:flex;gap:6px;background:var(--sand);flex-shrink:0}
-.exp-btn{flex:1;padding:7px 4px;border:1.5px solid var(--sand2);border-radius:var(--radius);background:var(--white);color:var(--ink2);font-size:11px;cursor:pointer;font-family:inherit;transition:var(--trans);text-align:center}
-.exp-btn:hover{border-color:var(--gold);color:var(--gold-dk);background:var(--gold-lt)}
-#edit-panel{flex:1;overflow-y:auto;min-height:0}
-#edit-panel::-webkit-scrollbar{width:4px}
-#edit-panel::-webkit-scrollbar-thumb{background:var(--sand2);border-radius:4px}
-.ep-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px 24px;text-align:center;color:var(--ink3)}
-.ep-empty-icon{font-size:48px;margin-bottom:16px;opacity:.4}
-.ep-hero{padding:20px 20px 16px;background:linear-gradient(135deg,var(--ink) 0%,#2C2419 100%);position:relative;overflow:hidden}
-.ep-hero::before{content:'';position:absolute;top:-30px;left:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(181,146,42,.25) 0%,transparent 70%)}
-.ep-addr{font-size:36px;font-weight:800;color:var(--gold);letter-spacing:-1px;line-height:1}
-.ep-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;margin-bottom:12px}
-.ep-body{padding:16px 18px}
-.fsec{margin-bottom:18px}
-.fsec-title{font-size:10px;font-weight:700;color:var(--stone);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--sand2)}
-.fg{margin-bottom:11px}
-.flbl{display:block;font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:5px}
-.finp{width:100%;padding:8px 11px;border:1.5px solid var(--sand2);border-radius:var(--radius);background:var(--white);color:var(--ink);font-size:13px;font-family:inherit;direction:rtl;transition:var(--trans)}
+/* List */
+#vlist{flex:1;overflow-y:auto;padding:5px 7px;min-height:0}
+#vlist::-webkit-scrollbar{width:4px}
+#vlist::-webkit-scrollbar-thumb{background:var(--sand2);border-radius:4px}
+.vr{display:flex;align-items:center;padding:8px 11px;gap:9px;border-radius:var(--r);cursor:pointer;margin-bottom:2px;border:1.5px solid transparent;transition:var(--tr)}
+.vr:hover{background:var(--sand);border-color:var(--sand2)}
+.vr.sel{background:var(--gold-lt);border-color:var(--gold)}
+.vnum{font-size:14px;font-weight:800;color:var(--gold-dk);min-width:40px}
+.vname{flex:1;font-size:12px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Pills */
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.pm{background:var(--green-lt);color:var(--green)}.pn{background:var(--red-lt);color:var(--red)}
+.pr{background:var(--amber-lt);color:var(--amber)}.pu{background:var(--slate-lt);color:var(--slate)}
+/* Export bar */
+.ebar{padding:9px 10px;border-top:1px solid var(--sand2);display:flex;gap:5px;background:var(--sand);flex-shrink:0}
+.ebtn{flex:1;padding:6px 3px;border:1.5px solid var(--sand2);border-radius:var(--r);background:var(--white);color:var(--ink);font-size:10px;cursor:pointer;font-family:inherit;transition:var(--tr);text-align:center}
+.ebtn:hover{border-color:var(--gold);color:var(--gold-dk);background:var(--gold-lt)}
+/* Edit panel */
+#epanel{flex:1;overflow-y:auto;min-height:0}
+#epanel::-webkit-scrollbar{width:4px}
+#epanel::-webkit-scrollbar-thumb{background:var(--sand2);border-radius:4px}
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;text-align:center;color:var(--ink3)}
+.eicon{font-size:44px;margin-bottom:14px;opacity:.35}
+.ehero{padding:18px 18px 14px;background:linear-gradient(135deg,#1C1917,#2C2419);position:relative;overflow:hidden}
+.eaddr{font-size:34px;font-weight:800;color:var(--gold);letter-spacing:-1px;line-height:1}
+.esub{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px;margin-bottom:10px}
+.ebody{padding:14px 16px}
+.fsec{margin-bottom:16px}
+.ftitle{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--sand2)}
+.fg{margin-bottom:10px}
+.flbl{display:block;font-size:11px;font-weight:600;color:var(--ink3);margin-bottom:4px}
+.finp{width:100%;padding:7px 10px;border:1.5px solid var(--sand2);border-radius:var(--r);background:var(--white);color:var(--ink);font-size:13px;font-family:inherit;direction:rtl;transition:var(--tr)}
 .finp:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-lt)}
-.fsel2{width:100%;padding:8px 11px;border:1.5px solid var(--sand2);border-radius:var(--radius);background:var(--white);color:var(--ink);font-size:13px;font-family:inherit;cursor:pointer;transition:var(--trans)}
+.fsel2{width:100%;padding:7px 10px;border:1.5px solid var(--sand2);border-radius:var(--r);background:var(--white);color:var(--ink);font-size:13px;font-family:inherit;cursor:pointer}
 .fsel2:focus{outline:none;border-color:var(--gold)}
-.mtog{display:flex;gap:8px}
-.mt-btn{flex:1;padding:9px;border:1.5px solid var(--sand2);border-radius:var(--radius);background:var(--white);color:var(--ink3);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:var(--trans);text-align:center}
-.mt-btn:hover{border-color:var(--stone)}
-.mt-btn.on-m{background:var(--green-lt);color:var(--green);border-color:var(--green);box-shadow:0 0 0 3px rgba(45,106,31,.1)}
-.mt-btn.on-n{background:var(--red-lt);color:var(--red);border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.1)}
-.mt-btn.on-u{background:var(--slate-lt);color:var(--slate);border-color:var(--slate)}
-.save-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--gold),var(--gold-dk));color:var(--ink);border:none;border-radius:var(--radius);font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--trans);margin-top:4px}
-.save-btn:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 4px 16px rgba(181,146,42,.4)}
-.saved-flash{display:flex;align-items:center;justify-content:center;gap:6px;height:28px;font-size:12px;color:var(--green);font-weight:600;opacity:0;transition:opacity .3s}
-.saved-flash.show{opacity:1}
-.clear-btn{width:100%;padding:9px;background:none;border:1.5px solid var(--sand2);border-radius:var(--radius);color:var(--ink3);font-size:12px;cursor:pointer;font-family:inherit;transition:var(--trans);margin-top:6px}
-.clear-btn:hover{border-color:var(--red);color:var(--red);background:var(--red-lt)}
-.map-topbar{padding:12px 18px;background:var(--white);border-bottom:1px solid var(--sand2);display:flex;align-items:center;gap:12px;flex-shrink:0;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.map-title{font-size:13px;font-weight:700;color:var(--ink);flex:1}
-.map-sub{font-size:11px;color:var(--ink3);font-weight:400}
-.legend{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink3)}
-.leg-dot{width:11px;height:11px;border-radius:3px;border:1px solid rgba(0,0,0,.12);flex-shrink:0}
-.map-stats{display:flex;gap:6px;padding:8px 18px;background:var(--sand);border-bottom:1px solid var(--sand2);flex-shrink:0;flex-wrap:wrap}
-.mstat{background:var(--white);border:1px solid var(--sand2);border-radius:8px;padding:5px 14px;font-size:11px;color:var(--ink3);text-align:center}
-.mstat b{font-size:16px;font-weight:800;display:block}
-#map-wrap{flex:1;overflow:hidden;position:relative;background:var(--sand)}
-#map-wrap svg{width:100%;height:100%;display:block}
+.mtog{display:flex;gap:6px}
+.mt{flex:1;padding:8px;border:1.5px solid var(--sand2);border-radius:var(--r);background:var(--white);color:var(--ink3);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:var(--tr);text-align:center}
+.mt.onm{background:var(--green-lt);color:var(--green);border-color:var(--green)}
+.mt.onn{background:var(--red-lt);color:var(--red);border-color:var(--red)}
+.mt.onu{background:var(--slate-lt);color:var(--slate);border-color:var(--slate)}
+.savebtn{width:100%;padding:11px;background:linear-gradient(135deg,var(--gold),var(--gold-dk));color:var(--ink);border:none;border-radius:var(--r);font-size:14px;font-weight:800;cursor:pointer;font-family:inherit;transition:var(--tr);margin-top:4px}
+.savebtn:hover{opacity:.88}
+.flash{display:flex;align-items:center;justify-content:center;height:26px;font-size:12px;color:var(--green);font-weight:600;opacity:0;transition:opacity .3s}
+.flash.show{opacity:1}
+.clearbtn{width:100%;padding:8px;background:none;border:1.5px solid var(--sand2);border-radius:var(--r);color:var(--ink3);font-size:12px;cursor:pointer;font-family:inherit;transition:var(--tr);margin-top:5px}
+.clearbtn:hover{border-color:var(--red);color:var(--red);background:var(--red-lt)}
+/* Map side */
+#mapside{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.mtopbar{padding:10px 16px;background:var(--white);border-bottom:1px solid var(--sand2);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.mtitle{font-size:13px;font-weight:700;color:var(--ink);flex:1}
+.leg{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--ink3)}
+.ld{width:10px;height:10px;border-radius:2px;border:1px solid rgba(0,0,0,.1)}
+.mstats{display:flex;gap:5px;padding:7px 16px;background:var(--sand);border-bottom:1px solid var(--sand2);flex-shrink:0;flex-wrap:wrap}
+.msc{background:var(--white);border:1px solid var(--sand2);border-radius:7px;padding:4px 12px;font-size:10px;color:var(--ink3);text-align:center}
+.msc b{font-size:15px;font-weight:800;display:block}
+#mapwrap{flex:1;overflow:hidden;position:relative}
+#mapwrap svg{width:100%;height:100%;display:block}
 .villa-shape{cursor:pointer;stroke:rgba(255,255,255,.8);stroke-width:0.7;transition:opacity .1s}
 .villa-shape:hover{stroke:#222;stroke-width:2;opacity:1!important}
 .villa-shape.dimmed{opacity:.07!important;pointer-events:none}
-.villa-shape.sel-shape{stroke:#F5C842;stroke-width:3;opacity:1!important}
-#tip{position:fixed;background:var(--white);border:1px solid var(--sand2);border-radius:14px;padding:12px 15px;pointer-events:none;z-index:9999;max-width:230px;display:none;box-shadow:var(--shadow-lg);direction:rtl;font-family:'Tajawal',sans-serif}
-#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--white);padding:11px 22px;border-radius:40px;font-size:13px;font-weight:500;z-index:99999;box-shadow:var(--shadow-lg);pointer-events:none;transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .35s;opacity:0;white-space:nowrap}
+.villa-shape.selshape{stroke:#F5C842;stroke-width:3;opacity:1!important}
+/* Tooltip */
+#tip{position:fixed;background:var(--white);border:1px solid var(--sand2);border-radius:12px;padding:11px 14px;pointer-events:none;z-index:9999;max-width:220px;display:none;box-shadow:var(--sh);direction:rtl;font-family:'Tajawal',sans-serif}
+/* Toast */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--ink);color:#fff;padding:10px 20px;border-radius:30px;font-size:12px;font-weight:500;z-index:99999;pointer-events:none;transition:transform .3s ease,opacity .3s;opacity:0;white-space:nowrap}
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-#loading{position:fixed;inset:0;background:var(--ink);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.spinner{width:44px;height:44px;border:3px solid rgba(181,146,42,.2);border-top-color:#B5922A;border-radius:50%;animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.load-txt{color:rgba(255,255,255,.6);font-size:14px}
-#gh-cfg-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20000;align-items:center;justify-content:center}
-#gh-cfg-modal.on{display:flex}
-.gcm{background:var(--white);border-radius:var(--radius-lg);padding:22px 24px;max-width:340px;width:92%;direction:rtl;font-family:inherit}
-::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--sand2);border-radius:4px}
+/* Loading */
+#loading{position:fixed;inset:0;background:var(--ink);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.spin{width:40px;height:40px;border:3px solid rgba(181,146,42,.2);border-top-color:var(--gold);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.ltxt{color:rgba(255,255,255,.55);font-size:13px}
+/* GH config modal */
+#ghmod{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20000;align-items:center;justify-content:center}
+#ghmod.on{display:flex}
+.gmc{background:var(--white);border-radius:var(--rlg);padding:20px 22px;max-width:320px;width:92%;direction:rtl;font-family:inherit}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--sand2);border-radius:4px}
 </style>
 </head>
 <body>
-
-<div id="loading"><div class="spinner"></div><div class="load-txt">جاري تحميل البيانات…</div></div>
-
+<div id="loading"><div class="spin"></div><div class="ltxt">جاري تحميل البيانات…</div></div>
 <div id="app">
-<div id="sidebar">
-  <div class="sb-brand">
-    <div class="sb-logo">
-      <div class="sb-logo-icon">🏘️</div>
-      <div><div class="sb-logo-text">حي النسيم</div><div class="sb-logo-sub">مدينة سلمان · البحرين</div></div>
+
+<!-- SIDEBAR -->
+<div id="sb">
+  <div class="brand">
+    <div class="blogo"><div class="bicon">🏘️</div>
+      <div><div class="btitle">حي النسيم</div><div class="bsub">مدينة سلمان · البحرين</div></div>
     </div>
-    <div class="sb-stats" id="brand-stats"></div>
-    <button id="gh-save-btn" onclick="pushToGitHub()">
-      <span id="gh-icon">☁️</span><span id="gh-txt">حفظ على GitHub</span>
+    <div class="bstats" id="bstats"></div>
+    <button id="gh-btn" onclick="pushToGitHub()">
+      <span id="ghi">☁️</span><span id="ght">حفظ على GitHub</span>
     </button>
-    <div id="gh-status"></div>
+    <div id="gh-sts"></div>
   </div>
 
   <div class="tabs">
-    <div class="tab active" id="tab-list" onclick="switchTab('list')">قائمة الوحدات</div>
-    <div class="tab" id="tab-edit" onclick="switchTab('edit')">تعديل الوحدة</div>
+    <button class="tab on" id="tl" onclick="swTab('list')">قائمة الوحدات</button>
+    <button class="tab"    id="te" onclick="swTab('edit')">تعديل الوحدة</button>
   </div>
 
-  <div id="pane-list" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0">
-    <div class="search-box">
-      <div class="si-wrap"><span class="si-icon">🔍</span>
-        <input type="text" id="search" placeholder="ابحث برقم المنزل أو الاسم…" oninput="renderList()"/>
+  <!-- LIST PANE -->
+  <div id="pl" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0">
+    <div class="sbox">
+      <div class="sw"><span class="si">🔍</span>
+        <input type="text" id="sq" placeholder="ابحث برقم المنزل أو الاسم…" oninput="renderList()"/>
       </div>
-      <select class="fsel" id="filt" onchange="renderList()">
+      <select class="fsel" id="sf" onchange="renderList()">
         <option value="all">جميع الحالات</option>
         <option value="mawaly">موالي</option>
-        <option value="not-mawaly">غير موالي</option>
-        <option value="reserved">غير مسكون</option>
-        <option value="available">غير محدد</option>
+        <option value="not">غير موالي</option>
+        <option value="occ">مسكون</option>
+        <option value="unocc">غير مسكون</option>
+        <option value="und">غير محدد</option>
       </select>
     </div>
-    <div id="villa-list"></div>
-    <div class="export-bar">
-      <button class="exp-btn" onclick="exportCSV()">⬇ CSV</button>
-      <button class="exp-btn" onclick="exportJSON()">⬇ JSON</button>
-      <button class="exp-btn" onclick="showGHCfg()">⚙️ GitHub</button>
+    <div id="vlist"></div>
+    <div class="ebar">
+      <button class="ebtn" onclick="expCSV()">⬇ CSV</button>
+      <button class="ebtn" onclick="expJSON()">⬇ JSON</button>
+      <button class="ebtn" onclick="showGHMod()">⚙️ GitHub</button>
     </div>
   </div>
 
-  <div id="pane-edit" style="display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0">
-    <div id="edit-panel">
-      <div class="ep-empty"><div class="ep-empty-icon">🏠</div>
-        <div style="font-size:15px;font-weight:700;color:var(--ink2);margin-bottom:6px">لم تُحدَّد وحدة</div>
-        <div style="font-size:12px;line-height:1.7;color:var(--stone)">اضغط على أي وحدة في الخريطة<br>أو اختر من قائمة الوحدات</div>
+  <!-- EDIT PANE -->
+  <div id="pe" style="display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0">
+    <div id="epanel">
+      <div class="empty"><div class="eicon">🏠</div>
+        <div style="font-size:14px;font-weight:700;color:#555;margin-bottom:6px">اختر وحدة للتعديل</div>
+        <div style="font-size:12px;color:#aaa;line-height:1.6">اضغط على أي وحدة في الخريطة<br>أو اختر من القائمة</div>
       </div>
     </div>
   </div>
 </div>
 
-<div id="map-side">
-  <div class="map-topbar">
-    <div><div class="map-title">خريطة المخطط التفاعلية<span class="map-sub"> — 131 وحدة سكنية</span></div></div>
-    <div class="legend">
-      <div class="leg"><div class="leg-dot" style="background:#2D6A1F"></div>موالي</div>
-      <div class="leg"><div class="leg-dot" style="background:#C0392B"></div>غير موالي</div>
-      <div class="leg"><div class="leg-dot" style="background:#D4880A"></div>غير مسكون</div>
-      <div class="leg"><div class="leg-dot" style="background:#9BA8B0"></div>غير محدد</div>
+<!-- MAP SIDE -->
+<div id="mapside">
+  <div class="mtopbar">
+    <div class="mtitle">خريطة حي النسيم — 131 وحدة سكنية</div>
+    <div class="leg">
+      <div class="li"><div class="ld" style="background:#2D6A1F"></div>موالي</div>
+      <div class="li"><div class="ld" style="background:#C0392B"></div>غير موالي</div>
+      <div class="li"><div class="ld" style="background:#D4880A"></div>غير مسكون</div>
+      <div class="li"><div class="ld" style="background:#9BA8B0"></div>غير محدد</div>
     </div>
   </div>
-  <div class="map-stats" id="map-stats"></div>
-  <div id="map-wrap"><svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="enable-background:new 0 0 1000 1000;">
+  <div class="mstats" id="mstats"></div>
+  <div id="mapwrap"><svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="enable-background:new 0 0 1000 1000;">
 
 <style type="text/css">
 	.st0{fill:#203A4A;}
@@ -13365,223 +13375,235 @@ body{font-family:'Tajawal',sans-serif;background:var(--sand);color:var(--ink);di
 <div id="tip"></div>
 <div id="toast"></div>
 
-<div id="gh-cfg-modal">
-<div class="gcm">
+<!-- GitHub config modal -->
+<div id="ghmod">
+<div class="gmc">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-    <div style="font-size:15px;font-weight:700">⚙️ إعدادات GitHub</div>
-    <button onclick="document.getElementById('gh-cfg-modal').classList.remove('on')" style="border:none;background:none;font-size:18px;cursor:pointer;color:var(--ink3)">✕</button>
+    <div style="font-size:14px;font-weight:700">⚙️ إعدادات GitHub</div>
+    <button onclick="document.getElementById('ghmod').classList.remove('on')" style="border:none;background:none;font-size:17px;cursor:pointer;color:#aaa">✕</button>
   </div>
-  <div style="margin-bottom:10px"><label class="flbl">GitHub Token</label>
-    <input id="gh-tok" type="password" placeholder="ghp_xxxx" class="finp" style="direction:ltr"/></div>
-  <div style="margin-bottom:10px"><label class="flbl">Username</label>
-    <input id="gh-usr" type="text" value="Jiotest" class="finp" style="direction:ltr"/></div>
-  <div style="margin-bottom:14px"><label class="flbl">Repository</label>
-    <input id="gh-rep" type="text" value="alnaseem" class="finp" style="direction:ltr"/></div>
-  <button onclick="saveGHCfg()" class="save-btn">حفظ</button>
-  <div id="gcm-status" style="font-size:11px;text-align:center;margin-top:7px;color:var(--green);height:16px"></div>
+  <div class="fg"><label class="flbl">GitHub Token</label>
+    <input id="ghtok" type="password" placeholder="ghp_xxxx" class="finp" style="direction:ltr"/></div>
+  <div class="fg"><label class="flbl">Username</label>
+    <input id="ghuser" type="text" value="Jiotest" class="finp" style="direction:ltr"/></div>
+  <div class="fg" style="margin-bottom:14px"><label class="flbl">Repository</label>
+    <input id="ghrepo" type="text" value="alnaseem" class="finp" style="direction:ltr"/></div>
+  <button onclick="saveGHCfg()" class="savebtn">حفظ</button>
+  <div id="ghms" style="font-size:11px;text-align:center;margin-top:7px;color:var(--green);height:16px"></div>
 </div>
 </div>
 
 <script>
-const DATA_URL = 'https://raw.githubusercontent.com/Jiotest/alnaseem/main/data.json';
+// ── State ──────────────────────────────────────────────────────────────────
 let VILLAS = [];
 const vMap = {};
-let selectedId = null;
+let selId = null;
+const LS_KEY = 'alnaseem_v3';
+const DATA_URL = 'https://raw.githubusercontent.com/Jiotest/alnaseem/main/data.json';
+const VIEW_URL = 'https://raw.githubusercontent.com/Jiotest/alnaseem/main/index.html';
 
 // ── Helpers ────────────────────────────────────────────────────────────────
-function getColor(v){
-  if(v.status==='available'||v.status==='none') return '#9BA8B0';
-  if(v.status==='reserved') return '#D4880A';
-  if(v.mawaly===null||v.mawaly===undefined) return '#9BA8B0';
+function gc(v) {
+  if (!v.status || v.status==='available') return '#9BA8B0';
+  if (v.status==='reserved') return '#D4880A';
+  if (v.mawaly===null || v.mawaly===undefined) return '#9BA8B0';
   return v.mawaly ? '#2D6A1F' : '#C0392B';
 }
-function getPill(v){
-  if(v.status==='available'||!v.status) return['pill-u','غير محدد'];
-  if(v.status==='reserved') return['pill-res','غير مسكون'];
-  if(v.mawaly===null||v.mawaly===undefined) return['pill-u','غير محدد'];
-  return v.mawaly?['pill-m','موالي']:['pill-n','غير موالي'];
+function gp(v) {
+  if (!v.status || v.status==='available') return ['pu','غير محدد'];
+  if (v.status==='reserved') return ['pr','غير مسكون'];
+  if (v.mawaly===null || v.mawaly===undefined) return ['pu','غير محدد'];
+  return v.mawaly ? ['pm','موالي'] : ['pn','غير موالي'];
 }
-function getStatusPill(v){
-  if(v.status==='available'||!v.status) return['pill-u','غير محدد'];
-  if(v.status==='reserved') return['pill-res','غير مسكون'];
-  return['pill-m','مسكون'];
+function gsp(v) {
+  if (!v.status || v.status==='available') return ['pu','غير محدد'];
+  if (v.status==='reserved') return ['pr','غير مسكون'];
+  return ['pm','مسكون'];
 }
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2800);
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+function saveLS() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(VILLAS)); } catch(e) {}
 }
 
 // ── Colors ─────────────────────────────────────────────────────────────────
-function applyColors(){
-  document.querySelectorAll('.villa-shape').forEach(el=>{
-    const v=vMap[parseInt(el.dataset.num)];
-    if(!v)return;
-    el.style.fill=getColor(v);
-    el.style.opacity=v.id===selectedId?'1':'0.82';
-    el.classList.toggle('sel-shape',v.id===selectedId);
+function applyColors() {
+  document.querySelectorAll('.villa-shape').forEach(el => {
+    const v = vMap[+el.dataset.num];
+    if (!v) return;
+    el.style.fill = gc(v);
+    el.style.opacity = v.id===selId ? '1' : '0.83';
+    el.classList.toggle('selshape', v.id===selId);
+    el.style.stroke = v.id===selId ? '#F5C842' : 'rgba(255,255,255,.8)';
+    el.style.strokeWidth = v.id===selId ? '3' : '0.7';
   });
 }
 
 // ── Stats ──────────────────────────────────────────────────────────────────
-function updateStats(shown){
-  const m  =VILLAS.filter(v=>v.mawaly===true &&v.status==='sold').length;
-  const nm =VILLAS.filter(v=>v.mawaly===false&&v.status==='sold').length;
-  const res=VILLAS.filter(v=>v.status==='reserved').length;
-  const av =VILLAS.filter(v=>!v.status||v.status==='available'||v.mawaly===null||v.mawaly===undefined).length;
-  document.getElementById('brand-stats').innerHTML=`
-    <div class="sss"><b>${shown??VILLAS.length}</b>ظاهر</div>
-    <div class="sss"><b class="g">${m}</b>موالي</div>
-    <div class="sss"><b class="r">${nm}</b>غير موالي</div>
-    <div class="sss"><b class="a">${res}</b>غير مسكون</div>`;
-  document.getElementById('map-stats').innerHTML=`
-    <div class="mstat"><b>${shown??VILLAS.length}</b>إجمالي</div>
-    <div class="mstat"><b style="color:#2D6A1F">${m}</b>موالي</div>
-    <div class="mstat"><b style="color:#C0392B">${nm}</b>غير موالي</div>
-    <div class="mstat"><b style="color:#D4880A">${res}</b>غير مسكون</div>
-    <div class="mstat"><b style="color:#6B8BA4">${av}</b>غير محدد</div>`;
+function updateStats(shown) {
+  const m  = VILLAS.filter(v=>v.mawaly===true  && v.status==='sold').length;
+  const nm = VILLAS.filter(v=>v.mawaly===false && v.status==='sold').length;
+  const r2 = VILLAS.filter(v=>v.status==='reserved').length;
+  const u  = VILLAS.filter(v=>!v.status||v.status==='available'||v.mawaly===null||v.mawaly===undefined).length;
+  document.getElementById('bstats').innerHTML =
+    `<div class="bs"><b>${shown??VILLAS.length}</b>ظاهر</div>
+     <div class="bs"><b style="color:#7EC860">${m}</b>موالي</div>
+     <div class="bs"><b style="color:#F08070">${nm}</b>غير موالي</div>
+     <div class="bs"><b style="color:var(--gold)">${r2}</b>غير مسكون</div>`;
+  document.getElementById('mstats').innerHTML =
+    `<div class="msc"><b>${shown??VILLAS.length}</b>إجمالي</div>
+     <div class="msc"><b style="color:#2D6A1F">${m}</b>موالي</div>
+     <div class="msc"><b style="color:#C0392B">${nm}</b>غير موالي</div>
+     <div class="msc"><b style="color:#D4880A">${r2}</b>غير مسكون</div>
+     <div class="msc"><b style="color:#6B8BA4">${u}</b>غير محدد</div>`;
 }
 
 // ── List ───────────────────────────────────────────────────────────────────
-function renderList(){
-  const q=(document.getElementById('search').value||'').trim().toLowerCase();
-  const s=document.getElementById('filt').value;
-  const ul=document.getElementById('villa-list');
-  ul.innerHTML='';let shown=0;
-  VILLAS.forEach(v=>{
-    const mq=!q||String(v.address).includes(q)||(v.owner||'').toLowerCase().includes(q);
-    const ms=s==='all'
-      ||(s==='mawaly'    &&v.mawaly===true &&v.status==='sold')
-      ||(s==='not-mawaly'&&v.mawaly===false&&v.status==='sold')
-      ||(s==='reserved'  &&v.status==='reserved')
-      ||(s==='available' &&(!v.status||v.status==='available'||v.mawaly===null||v.mawaly===undefined));
-    const el2=document.querySelector(`[data-num="${v.id}"]`);
-    if(el2)el2.classList.toggle('dimmed',!(mq&&ms));
-    if(!mq||!ms)return;shown++;
-    const[pc,pt]=getStatusPill(v);
-    const d=document.createElement('div');
-    d.className='vrow'+(v.id===selectedId?' selected':'');
-    d.innerHTML=`<div class="vrow-num">${v.address}</div>
-      <div class="vrow-name">${v.owner||'<span style="color:#C8BFB0;font-style:italic">بدون اسم</span>'}</div>
+function renderList() {
+  const q = (document.getElementById('sq').value||'').trim().toLowerCase();
+  const s = document.getElementById('sf').value;
+  const ul = document.getElementById('vlist');
+  ul.innerHTML = ''; let n = 0;
+  VILLAS.forEach(v => {
+    const mq = !q || String(v.address).includes(q) || (v.owner||'').toLowerCase().includes(q);
+    const ms = s==='all'
+      || (s==='mawaly' && v.mawaly===true  && v.status==='sold')
+      || (s==='not'    && v.mawaly===false && v.status==='sold')
+      || (s==='occ'    && v.status==='sold')
+      || (s==='unocc'  && v.status==='reserved')
+      || (s==='und'    && (!v.status||v.status==='available'||v.mawaly===null||v.mawaly===undefined));
+    const el = document.querySelector(`[data-num="${v.id}"]`);
+    if (el) el.classList.toggle('dimmed', !(mq&&ms));
+    if (!mq||!ms) return; n++;
+    const [pc,pt] = gsp(v);
+    const d = document.createElement('div');
+    d.className = 'vr' + (v.id===selId?' sel':'');
+    d.innerHTML = `<div class="vnum">${v.address}</div>
+      <div class="vname">${v.owner||'<span style="color:#C8BFB0;font-style:italic">بدون اسم</span>'}</div>
       <div class="pill ${pc}">${pt}</div>`;
-    d.onclick=()=>selectVilla(v.id);
+    d.onclick = ()=>selectVilla(v.id);
     ul.appendChild(d);
   });
-  updateStats(shown);
+  updateStats(n);
 }
 
 // ── Select ─────────────────────────────────────────────────────────────────
-function selectVilla(id){
-  selectedId=id;applyColors();renderList();renderEdit(vMap[id]);switchTab('edit');
+function selectVilla(id) {
+  selId = id; applyColors(); renderList(); renderEdit(vMap[id]); swTab('edit');
 }
 
-// ── Edit panel ─────────────────────────────────────────────────────────────
-function renderEdit(v){
-  const stOpts=[['sold','مسكون'],['reserved','غير مسكون'],['available','غير محدد']]
+// ── Edit ───────────────────────────────────────────────────────────────────
+function renderEdit(v) {
+  const st=[['sold','مسكون'],['reserved','غير مسكون'],['available','غير محدد']]
     .map(([val,lbl])=>`<option value="${val}" ${v.status===val?'selected':''}>${lbl}</option>`).join('');
-  document.getElementById('edit-panel').innerHTML=`
-    <div class="ep-hero">
-      <div class="ep-addr">${v.address}</div>
-      <div class="ep-sub">وحدة ${v.id} من 131 · حي النسيم</div>
+  document.getElementById('epanel').innerHTML = `
+    <div class="ehero">
+      <div class="eaddr">${v.address}</div>
+      <div class="esub">وحدة ${v.id} من 131 · حي النسيم</div>
     </div>
-    <div class="ep-body">
-      <div class="fsec"><div class="fsec-title">معلومات العنوان</div>
-        <div class="fg"><label class="flbl">رقم المنزل</label><input class="finp" id="f-addr" type="number" value="${v.address}"/></div>
-        <div class="fg"><label class="flbl">مساحة الأرض (م²)</label><input class="finp" id="f-area" type="number" step="0.01" value="${v.area||171}"/></div>
-        <div class="fg"><label class="flbl">مساحة البناء (م²)</label><input class="finp" id="f-barea" type="number" step="0.01" value="${v.building_area||264}"/></div>
+    <div class="ebody">
+      <div class="fsec"><div class="ftitle">العنوان</div>
+        <div class="fg"><label class="flbl">رقم المنزل</label><input class="finp" id="fa" type="number" value="${v.address}"/></div>
+        <div class="fg"><label class="flbl">مساحة الأرض (م²)</label><input class="finp" id="farea" type="number" step="0.01" value="${v.area||171}"/></div>
+        <div class="fg"><label class="flbl">مساحة البناء (م²)</label><input class="finp" id="fbarea" type="number" step="0.01" value="${v.building_area||264}"/></div>
       </div>
-      <div class="fsec"><div class="fsec-title">بيانات المالك</div>
-        <div class="fg"><label class="flbl">اسم المالك</label><input class="finp" id="f-owner" type="text" value="${v.owner||''}" placeholder="أدخل اسم المالك…"/></div>
-        <div class="fg"><label class="flbl">رقم الجوال</label><input class="finp" id="f-phone" type="tel" value="${v.phone||''}" placeholder="+973 XXXXXXXX" dir="ltr" style="text-align:right"/></div>
-        <div class="fg"><label class="flbl">المنطقة</label><input class="finp" id="f-notes" type="text" value="${v.notes||''}" placeholder="المنطقة أو أي ملاحظة…"/></div>
+      <div class="fsec"><div class="ftitle">بيانات المالك</div>
+        <div class="fg"><label class="flbl">اسم المالك</label><input class="finp" id="fo" type="text" value="${v.owner||''}" placeholder="اسم المالك…"/></div>
+        <div class="fg"><label class="flbl">رقم الجوال</label><input class="finp" id="fp" type="tel" value="${v.phone||''}" placeholder="+973 XXXXXXXX" dir="ltr" style="text-align:right"/></div>
+        <div class="fg"><label class="flbl">المنطقة / ملاحظات</label><input class="finp" id="fn" type="text" value="${v.notes||''}" placeholder="المنطقة…"/></div>
       </div>
-      <div class="fsec"><div class="fsec-title">الحالة والتصنيف</div>
-        <div class="fg"><label class="flbl">حالة الوحدة</label><select class="fsel2" id="f-status">${stOpts}</select></div>
+      <div class="fsec"><div class="ftitle">الحالة والتصنيف</div>
+        <div class="fg"><label class="flbl">حالة الوحدة</label><select class="fsel2" id="fst">${st}</select></div>
         <div class="fg"><label class="flbl">نوع المالك</label>
           <div class="mtog">
-            <button class="mt-btn ${v.mawaly===true?'on-m':''}"  id="btn-m" onclick="setMawaly(true)">✓ موالي</button>
-            <button class="mt-btn ${v.mawaly===false?'on-n':''}" id="btn-n" onclick="setMawaly(false)">✗ غير موالي</button>
-            <button class="mt-btn ${v.mawaly===null||v.mawaly===undefined?'on-u':''}" id="btn-u" onclick="setMawaly(null)">— غير محدد</button>
+            <button class="mt ${v.mawaly===true?'onm':''}"  id="bm" onclick="setM(true)">✓ موالي</button>
+            <button class="mt ${v.mawaly===false?'onn':''}" id="bn" onclick="setM(false)">✗ غير موالي</button>
+            <button class="mt ${v.mawaly===null||v.mawaly===undefined?'onu':''}" id="bu" onclick="setM(null)">— غير محدد</button>
           </div>
         </div>
       </div>
-      <button class="save-btn" onclick="saveVilla()">حفظ التعديلات</button>
-      <div class="saved-flash" id="sf">✓ تم الحفظ</div>
-      <button class="clear-btn" onclick="clearVilla()">مسح بيانات هذه الوحدة</button>
+      <button class="savebtn" onclick="saveVilla()">💾 حفظ التعديلات</button>
+      <div class="flash" id="fl">✓ تم الحفظ</div>
+      <button class="clearbtn" onclick="clearVilla()">🗑 مسح بيانات هذه الوحدة</button>
     </div>`;
 }
 
-function setMawaly(val){
-  if(!selectedId)return;
-  vMap[selectedId].mawaly=val;
-  document.getElementById('btn-m').className='mt-btn'+(val===true?' on-m':'');
-  document.getElementById('btn-n').className='mt-btn'+(val===false?' on-n':'');
-  document.getElementById('btn-u').className='mt-btn'+(val===null||val===undefined?' on-u':'');
+function setM(val) {
+  if (!selId) return;
+  vMap[selId].mawaly = val;
+  document.getElementById('bm').className = 'mt' + (val===true?' onm':'');
+  document.getElementById('bn').className = 'mt' + (val===false?' onn':'');
+  document.getElementById('bu').className = 'mt' + (val===null||val===undefined?' onu':'');
   applyColors();
 }
 
-function saveVilla(){
-  if(!selectedId)return;
-  const v=vMap[selectedId];
-  const addr=parseInt(document.getElementById('f-addr').value);
-  if(addr)v.address=addr;
-  v.owner =document.getElementById('f-owner').value.trim();
-  v.phone =document.getElementById('f-phone').value.trim();
-  v.status=document.getElementById('f-status').value;
-  v.area  =parseFloat(document.getElementById('f-area').value)||v.area;
-  v.building_area=parseFloat(document.getElementById('f-barea').value)||v.building_area;
-  v.notes =document.getElementById('f-notes').value.trim();
-  const idx=VILLAS.findIndex(x=>x.id===selectedId);
-  if(idx!==-1)VILLAS[idx]=v;
-  applyColors();renderList();renderEdit(v);
-  const sf=document.getElementById('sf');
-  if(sf){sf.classList.add('show');setTimeout(()=>sf.classList.remove('show'),2200);}
-  showToast('✓ تم حفظ الوحدة '+v.address);
+function saveVilla() {
+  if (!selId) return;
+  const v = vMap[selId];
+  const a = parseInt(document.getElementById('fa').value); if(a) v.address=a;
+  v.owner        = document.getElementById('fo').value.trim();
+  v.phone        = document.getElementById('fp').value.trim();
+  v.status       = document.getElementById('fst').value;
+  v.area         = parseFloat(document.getElementById('farea').value)||v.area;
+  v.building_area= parseFloat(document.getElementById('fbarea').value)||v.building_area;
+  v.notes        = document.getElementById('fn').value.trim();
+  const idx = VILLAS.findIndex(x=>x.id===selId);
+  if(idx!==-1) VILLAS[idx]=v;
+  // ✅ Save to localStorage immediately
+  saveLS();
+  applyColors(); renderList(); renderEdit(v);
+  const fl=document.getElementById('fl');
+  if(fl){fl.classList.add('show');setTimeout(()=>fl.classList.remove('show'),2000);}
+  toast('✓ تم حفظ الوحدة '+v.address);
 }
 
-function clearVilla(){
-  if(!selectedId||!confirm('مسح بيانات هذه الوحدة؟'))return;
-  const v=vMap[selectedId];
+function clearVilla() {
+  if (!selId||!confirm('مسح بيانات هذه الوحدة؟')) return;
+  const v=vMap[selId];
   v.owner='';v.phone='';v.notes='';v.status='available';v.mawaly=null;
-  const idx=VILLAS.findIndex(x=>x.id===selectedId);
+  const idx=VILLAS.findIndex(x=>x.id===selId);
   if(idx!==-1)VILLAS[idx]=v;
+  saveLS();
   applyColors();renderList();renderEdit(v);
+  toast('تم مسح بيانات الوحدة '+v.address);
 }
 
 // ── Tabs ───────────────────────────────────────────────────────────────────
-function switchTab(t){
-  document.getElementById('tab-list').className='tab'+(t==='list'?' active':'');
-  document.getElementById('tab-edit').className='tab'+(t==='edit'?' active':'');
-  document.getElementById('pane-list').style.display=t==='list'?'flex':'none';
-  document.getElementById('pane-edit').style.display=t==='edit'?'flex':'none';
+function swTab(t) {
+  document.getElementById('tl').className='tab'+(t==='list'?' on':'');
+  document.getElementById('te').className='tab'+(t==='edit'?' on':'');
+  document.getElementById('pl').style.display=t==='list'?'flex':'none';
+  document.getElementById('pe').style.display=t==='edit'?'flex':'none';
 }
 
 // ── Tooltip ────────────────────────────────────────────────────────────────
 const tip=document.getElementById('tip');
-function showTip(e,v){
-  const[pc,pt]=getPill(v);
-  tip.innerHTML=`<div style="font-size:17px;font-weight:800;color:var(--gold-dk)">${v.address}</div>
-    <div style="font-size:13px;color:var(--ink);margin:3px 0">${v.owner||'<span style="color:#C8BFB0;font-style:italic">بدون اسم</span>'}</div>
+function showTip(e,v) {
+  const[pc,pt]=gp(v);
+  tip.innerHTML=`<div style="font-size:16px;font-weight:800;color:var(--gold-dk)">${v.address}</div>
+    <div style="font-size:12px;color:var(--ink);margin:3px 0">${v.owner||'<span style="color:#C8BFB0;font-style:italic">بدون اسم</span>'}</div>
     ${v.phone?`<div style="font-size:11px;color:var(--ink3)">📞 ${v.phone}</div>`:''}
-    <div style="margin-top:7px;display:flex;justify-content:space-between;align-items:center">
+    <div style="margin-top:6px;display:flex;justify-content:space-between">
       <span class="pill ${pc}">${pt}</span>
-      <span style="font-size:10px;color:var(--ink3)">${v.area} م²</span>
+      <span style="font-size:10px;color:var(--ink3)">${v.area}م²</span>
     </div>
     ${v.notes?`<div style="font-size:10px;color:var(--gold-dk);margin-top:4px">📍 ${v.notes}</div>`:''}
-    <div style="font-size:10px;color:var(--gold);margin-top:5px;font-weight:600">← اضغط للتعديل</div>`;
-  tip.style.display='block';moveTip(e);
+    <div style="font-size:9px;color:var(--gold);margin-top:4px">← اضغط للتعديل</div>`;
+  tip.style.display='block'; moveTip(e);
 }
-function moveTip(e){
-  const x=e.clientX+14,y=e.clientY-10;
-  tip.style.left=Math.min(x,window.innerWidth-245)+'px';
-  tip.style.top=Math.max(10,Math.min(y,window.innerHeight-200))+'px';
+function moveTip(e) {
+  const x=e.clientX+12,y=e.clientY-10;
+  tip.style.left=Math.min(x,innerWidth-235)+'px';
+  tip.style.top=Math.max(10,Math.min(y,innerHeight-200))+'px';
 }
 
 // ── SVG events ─────────────────────────────────────────────────────────────
-function attachEvents(){
+function attachEvents() {
   document.querySelectorAll('.villa-shape').forEach(el=>{
-    const v=vMap[parseInt(el.dataset.num)];
-    if(!v)return;
+    const v=vMap[+el.dataset.num];if(!v)return;
     el.addEventListener('mouseenter',e=>showTip(e,v));
     el.addEventListener('mousemove',moveTip);
     el.addEventListener('mouseleave',()=>tip.style.display='none');
@@ -13591,102 +13613,93 @@ function attachEvents(){
 
 // ── GitHub ─────────────────────────────────────────────────────────────────
 function getGHCfg(){return{token:localStorage.getItem('gh_token')||'',user:localStorage.getItem('gh_user')||'Jiotest',repo:localStorage.getItem('gh_repo')||'alnaseem'};}
-function showGHCfg(){
+function showGHMod(){
   const c=getGHCfg();
-  document.getElementById('gh-tok').value=c.token;
-  document.getElementById('gh-usr').value=c.user;
-  document.getElementById('gh-rep').value=c.repo;
-  document.getElementById('gh-cfg-modal').classList.add('on');
+  document.getElementById('ghtok').value=c.token;
+  document.getElementById('ghuser').value=c.user;
+  document.getElementById('ghrepo').value=c.repo;
+  document.getElementById('ghmod').classList.add('on');
 }
 function saveGHCfg(){
-  const tok=document.getElementById('gh-tok').value.trim();
-  if(!tok){document.getElementById('gcm-status').textContent='⚠️ أدخل التوكن';return;}
+  const tok=document.getElementById('ghtok').value.trim();
+  if(!tok){document.getElementById('ghms').textContent='⚠️ أدخل التوكن';return;}
   localStorage.setItem('gh_token',tok);
-  localStorage.setItem('gh_user',document.getElementById('gh-usr').value.trim());
-  localStorage.setItem('gh_repo',document.getElementById('gh-rep').value.trim());
-  document.getElementById('gcm-status').textContent='✅ تم الحفظ';
-  setTimeout(()=>{document.getElementById('gh-cfg-modal').classList.remove('on');document.getElementById('gcm-status').textContent='';},1200);
+  localStorage.setItem('gh_user',document.getElementById('ghuser').value.trim());
+  localStorage.setItem('gh_repo',document.getElementById('ghrepo').value.trim());
+  document.getElementById('ghms').textContent='✅ تم الحفظ';
+  setTimeout(()=>{document.getElementById('ghmod').classList.remove('on');document.getElementById('ghms').textContent='';},1000);
 }
 
-async function getFileSHA(token,user,repo,fn){
+async function ghSHA(token,user,repo,fn){
   const r=await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${fn}`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
   if(r.ok){const d=await r.json();return d.sha;}return null;
 }
-async function pushFile(token,user,repo,fn,content,msg){
-  const sha=await getFileSHA(token,user,repo,fn);
+async function ghPush(token,user,repo,fn,content,msg){
+  const sha=await ghSHA(token,user,repo,fn);
   const enc=btoa(unescape(encodeURIComponent(content)));
   const body={message:msg,content:enc};if(sha)body.sha=sha;
   const r=await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${fn}`,{
-    method:'PUT',headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+    method:'PUT',
+    headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
     body:JSON.stringify(body)
-  });return r.ok;
+  });
+  return r.ok;
 }
 
-async function pushToGitHub() {
-  const cfg = getGHCfg();
-  if (!cfg.token) { showGHCfg(); return; }
+async function pushToGitHub(){
+  const cfg=getGHCfg();
+  if(!cfg.token){showGHMod();return;}
+  const btn=document.getElementById('gh-btn');
+  const icon=document.getElementById('ghi');
+  const txt=document.getElementById('ght');
+  const sts=document.getElementById('gh-sts');
+  btn.disabled=true;icon.textContent='⏳';txt.textContent='جاري الرفع…';sts.textContent='';
+  try{
+    // Use latest data from VILLAS (which is always up to date from saveVilla)
+    const dataJson=JSON.stringify(VILLAS,null,0);
 
-  const btn  = document.getElementById('gh-save-btn');
-  const icon = document.getElementById('gh-icon');
-  const txt  = document.getElementById('gh-txt');
-  const sts  = document.getElementById('gh-status');
-  btn.disabled = true;
-  icon.textContent = '⏳'; txt.textContent = 'جاري الرفع…'; sts.textContent = '';
+    // Step 1: push data.json
+    sts.textContent='رفع البيانات (1/2)…';
+    const ok1=await ghPush(cfg.token,cfg.user,cfg.repo,'data.json',dataJson,'🔄 Update villa data');
+    if(!ok1)throw new Error('فشل رفع البيانات — تحقق من التوكن');
 
-  try {
-    const dataJson = JSON.stringify(VILLAS, null, 0);
+    // Step 2: fetch view page, replace data, push it back
+    sts.textContent='تحديث صفحة العرض (2/2)…';
+    const vr=await fetch('https://raw.githubusercontent.com/Jiotest/alnaseem/main/index.html?v='+Date.now(),{cache:'no-store'});
+    if(!vr.ok)throw new Error('فشل تحميل صفحة العرض');
+    let vhtml=await vr.text();
+    // Replace the baked-in V= data
+    vhtml=vhtml.replace(/const V=\[[\s\S]*?\];/,'const V='+dataJson+';');
+    const ok2=await ghPush(cfg.token,cfg.user,cfg.repo,'index.html',vhtml,'🔄 Sync view page');
+    if(!ok2)throw new Error('فشل تحديث صفحة العرض');
 
-    // ── Step 1: push data.json ──────────────────────────────
-    sts.textContent = 'رفع البيانات (1/2)…';
-    const ok1 = await pushFile(cfg.token, cfg.user, cfg.repo, 'data.json', dataJson, '🔄 Update villa data');
-    if (!ok1) throw new Error('فشل رفع data.json');
-
-    // ── Step 2: fetch index.html, replace data, push it back ──
-    sts.textContent = 'تحديث صفحة العرض (2/2)…';
-
-    // Fetch current index.html from GitHub
-    const sha = await getFileSHA(cfg.token, cfg.user, cfg.repo, 'index.html');
-    const rawResp = await fetch(
-      'https://raw.githubusercontent.com/' + cfg.user + '/' + cfg.repo + '/main/index.html?bust=' + Date.now(),
-      { cache: 'no-store' }
-    );
-    if (!rawResp.ok) throw new Error('فشل تحميل index.html');
-    let viewHtml = await rawResp.text();
-
-    // Replace the V= data line (the baked-in villa data)
-    viewHtml = viewHtml.replace(/const V=\[.*?\];/, 'const V=' + dataJson + ';');
-
-    const ok2 = await pushFile(cfg.token, cfg.user, cfg.repo, 'index.html', viewHtml, '🔄 Sync view page data');
-    if (!ok2) throw new Error('فشل تحديث index.html');
-
-    icon.textContent = '✅'; txt.textContent = 'تم الحفظ!';
-    sts.textContent = 'صفحة العرض محدّثة ✓';
-    showToast('✅ تم الحفظ على GitHub!');
-    setTimeout(() => { icon.textContent='☁️'; txt.textContent='حفظ على GitHub'; sts.textContent=''; btn.disabled=false; }, 3000);
-
-  } catch(err) {
-    icon.textContent = '❌'; txt.textContent = 'فشل الرفع';
-    sts.textContent = err.message || 'خطأ';
-    showToast('❌ ' + err.message);
-    setTimeout(() => { icon.textContent='☁️'; txt.textContent='حفظ على GitHub'; sts.textContent=''; btn.disabled=false; }, 3500);
+    icon.textContent='✅';txt.textContent='تم الحفظ!';sts.textContent='صفحة العرض محدّثة ✓';
+    toast('✅ تم الحفظ على GitHub — صفحة العرض محدّثة!');
+    setTimeout(()=>{icon.textContent='☁️';txt.textContent='حفظ على GitHub';sts.textContent='';btn.disabled=false;},3500);
+  }catch(err){
+    icon.textContent='❌';txt.textContent='فشل';sts.textContent=err.message;
+    toast('❌ '+err.message);
+    setTimeout(()=>{icon.textContent='☁️';txt.textContent='حفظ على GitHub';sts.textContent='';btn.disabled=false;},3500);
   }
 }
 
-
-function exportCSV(){
-  const hdr='رقم الوحدة,رقم المنزل,اسم المالك,رقم الجوال,الحالة,نوع المالك,مساحة الأرض,مساحة البناء,ملاحظات';
+// ── Export ─────────────────────────────────────────────────────────────────
+function expCSV(){
+  const h='رقم الوحدة,رقم المنزل,اسم المالك,رقم الجوال,الحالة,نوع المالك,مساحة الأرض,مساحة البناء,ملاحظات';
   const rows=VILLAS.map(v=>[v.id,v.address,`"${(v.owner||'').replace(/"/g,'""')}"`,`"${(v.phone||'').replace(/"/g,'""')}"`,
     v.status==='sold'?'مسكون':v.status==='reserved'?'غير مسكون':'غير محدد',
     v.status==='sold'?(v.mawaly===true?'موالي':v.mawaly===false?'غير موالي':'غير محدد'):'',
     v.area||'',v.building_area||'',`"${(v.notes||'').replace(/"/g,'""')}"`].join(','));
   const a=document.createElement('a');
-  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent('\uFEFF'+hdr+'\n'+rows.join('\n'));
-  a.download='alnaseem.csv';a.click();showToast('تم تصدير CSV ✓');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent('﻿'+h+'
+'+rows.join('
+'));
+  a.download='alnaseem.csv';a.click();toast('تم تصدير CSV ✓');
 }
-function exportJSON(){
+function expJSON(){
   const a=document.createElement('a');
   a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(VILLAS,null,2));
-  a.download='alnaseem.json';a.click();showToast('تم تصدير JSON ✓');
+  a.download='alnaseem.json';a.click();toast('تم تصدير JSON ✓');
 }
 
 // ── Keyboard ───────────────────────────────────────────────────────────────
@@ -13695,21 +13708,50 @@ document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();saveVilla();}
 });
 
-// ── Init: load from GitHub ──────────────────────────────────────────────────
-fetch(DATA_URL+'?t='+Date.now())
-  .then(r=>r.json())
-  .then(data=>{
-    VILLAS=data;
-    VILLAS.forEach(v=>vMap[v.id]=v);
-    applyColors();attachEvents();renderList();
-    document.getElementById('loading').style.display='none';
-  })
-  .catch(()=>{
-    // fallback to embedded
-    const fallback=[{"id":1,"address":3331,"owner":"صالح مهدي (أبو مهدي)","phone":"+973 39894778","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":2,"address":3329,"owner":"سلمان العرادي (أبو ليا)","phone":"+973 34042689","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"بلاد القديم"},{"id":3,"address":3327,"owner":"أحمد سلمان","phone":"+973 39203620","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"أبوصيبع"},{"id":4,"address":3325,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":5,"address":3026,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":6,"address":3323,"owner":"ممدوح العنيسي","phone":"+973 33337266","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":7,"address":3024,"owner":"حسن النصوح","phone":"+973 36882246","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الدير"},{"id":8,"address":3321,"owner":"محمود الشهابي","phone":"+973 66994899","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الدراز"},{"id":9,"address":3022,"owner":"سيد حيدر (أبو سيد مهدي)","phone":"+973 36850028","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الماحوز"},{"id":10,"address":3319,"owner":"أحمد عبدالنبي","phone":"+973 33993320","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الحجر"},{"id":11,"address":3020,"owner":"السيد علي الموسوي (أبو سيد حسين)","phone":"+973 36850082","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الماحوز"},{"id":12,"address":3317,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":13,"address":3018,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":14,"address":3315,"owner":"مهدي المعلم","phone":"+973 36667009","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":15,"address":3016,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":16,"address":3313,"owner":"حسن علي","phone":"+973 33122158","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"بني جمرة"},{"id":17,"address":3014,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":18,"address":3311,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":19,"address":3012,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":20,"address":3309,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":21,"address":3010,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":22,"address":3307,"owner":"سيد محمد هاشم","phone":"+973 39555793","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"عالي"},{"id":23,"address":3008,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":24,"address":3305,"owner":"","phone":"","status":"reserved","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":25,"address":3006,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":26,"address":3303,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":27,"address":3004,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":28,"address":3301,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":29,"address":3002,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":30,"address":3233,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":31,"address":3334,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":32,"address":3231,"owner":"","phone":"","status":"reserved","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":33,"address":3332,"owner":"سيد علوي حيدر","phone":"+973 35342390","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":34,"address":3229,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":35,"address":3330,"owner":"","phone":"","status":"reserved","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":36,"address":3227,"owner":"موسى أبو بنين","phone":"+973 39227818","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":37,"address":3328,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":38,"address":3225,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":39,"address":3326,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":40,"address":3223,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":41,"address":3324,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":42,"address":3221,"owner":"محمد الخياط","phone":"+973 32123213","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"جدحفص"},{"id":43,"address":3322,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":44,"address":3219,"owner":"جعفر شعباني","phone":"+973 36667713","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"بلاد القديم"},{"id":45,"address":3320,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":46,"address":3217,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":47,"address":3318,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":48,"address":3215,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":49,"address":3316,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":50,"address":3213,"owner":"صادق الخال","phone":"+973 33594930","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":51,"address":3314,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":52,"address":3211,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":53,"address":3312,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":54,"address":3209,"owner":"علي موسى","phone":"+973 33909291","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"المحرق"},{"id":55,"address":3310,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":56,"address":3207,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":57,"address":3308,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":58,"address":3205,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":59,"address":3306,"owner":"","phone":"","status":"reserved","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":60,"address":3203,"owner":"عبدالله الخياز","phone":"+973 36516257","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":61,"address":3304,"owner":"","phone":"","status":"reserved","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":62,"address":3201,"owner":"سيد حسن حيدر","phone":"+973 35014290","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"الدراز"},{"id":63,"address":3302,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":64,"address":3133,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":65,"address":3234,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":66,"address":3131,"owner":"","phone":"","status":"reserved","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":67,"address":3232,"owner":"جاسم النكاس (أبو ناصر)","phone":"+973 37198855","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":68,"address":3129,"owner":"عمار الجفيري (أبو أحمد)","phone":"+973 33779518","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":69,"address":3230,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":70,"address":3127,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":71,"address":3228,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":72,"address":3125,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":73,"address":3226,"owner":"أحمد خلف (أبو عيسى)","phone":"+973 32005006","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":74,"address":3123,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":75,"address":3224,"owner":"أحمد الصفاف","phone":"+973 33911133","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"المنامة"},{"id":76,"address":3121,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":77,"address":3222,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":78,"address":3119,"owner":"ماجد ميرزا","phone":"+973 39222595","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"الدراز"},{"id":79,"address":3220,"owner":"حسين الأسود","phone":"+973 32255707","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"كرانة"},{"id":80,"address":3117,"owner":"آدم غازي (أبو حسين)","phone":"+973 66959556","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":81,"address":3218,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":82,"address":3115,"owner":"سيد علي الغريفي","phone":"+973 39210334","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":83,"address":3216,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":84,"address":3113,"owner":"محمد جبار (أبو آدم)","phone":"+973 33171788","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"المقشع"},{"id":85,"address":3214,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":86,"address":3111,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":87,"address":3212,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":88,"address":3109,"owner":"جابر مجيد (أبو سجاد)","phone":"+973 36229778","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":89,"address":3210,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":90,"address":3107,"owner":"السيد جلال (أبو سيد حسين)","phone":"+973 36722395","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":91,"address":3208,"owner":"","phone":"","status":"reserved","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":92,"address":3105,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":93,"address":3206,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":94,"address":3103,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":95,"address":3204,"owner":"محمد عمران الجفير (أبو علي)","phone":"+973 36050369","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":96,"address":3101,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":97,"address":3202,"owner":"سلمان غواص","phone":"+973 36522582","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":98,"address":3062,"owner":"علي حسين","phone":"+973 66952288","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":99,"address":3134,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":100,"address":3064,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":101,"address":3132,"owner":"حسين الموت","phone":"+973 33031262","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":102,"address":3066,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":103,"address":3130,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":104,"address":3068,"owner":"علي التويلاني","phone":"+973 37336387","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"الديه"},{"id":105,"address":3128,"owner":"فيصل المؤذن","phone":"+973 38250001","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":106,"address":3070,"owner":"","phone":"","status":"sold","area":176.2,"mawaly":null,"building_area":264.0,"notes":""},{"id":107,"address":3126,"owner":"منصور حمدان","phone":"+973 33142660","status":"sold","area":176.2,"mawaly":true,"building_area":264.0,"notes":""},{"id":108,"address":3072,"owner":"","phone":"","status":"sold","area":176.2,"mawaly":null,"building_area":264.0,"notes":""},{"id":109,"address":3124,"owner":"","phone":"","status":"sold","area":176.2,"mawaly":null,"building_area":264.0,"notes":""},{"id":110,"address":3074,"owner":"","phone":"","status":"sold","area":176.2,"mawaly":null,"building_area":264.0,"notes":""},{"id":111,"address":3122,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":112,"address":3076,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":113,"address":3120,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":114,"address":3078,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":115,"address":3118,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":116,"address":3080,"owner":"محمد حسن القلعاوي (أبو حسن)","phone":"+973 39114435","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"الديه"},{"id":117,"address":3116,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":118,"address":3082,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":119,"address":3114,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":120,"address":3084,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":121,"address":3112,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":122,"address":3086,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":123,"address":3110,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":124,"address":3088,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":125,"address":3108,"owner":"سيد علي الموسوي","phone":"+973 39747606","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"الديه"},{"id":126,"address":3090,"owner":"زهير عبدالله (أبو علي)","phone":"+973 39545874","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"سترة"},{"id":127,"address":3106,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":128,"address":3092,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":129,"address":3104,"owner":"حسين الباربياري","phone":"+973 39274946","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":130,"address":3102,"owner":"قاسم الوطني (أبو حيدر)","phone":"+973 66907872","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":131,"address":3094,"owner":"","phone":"","status":"reserved","area":176.4,"mawaly":null,"building_area":264.0,"notes":""}];
-    VILLAS=fallback;VILLAS.forEach(v=>vMap[v.id]=v);
-    applyColors();attachEvents();renderList();
-    document.getElementById('loading').style.display='none';
+// ════════════════════════════════════════════════════════════
+// INIT — load order:
+//   1. Fetch data.json from GitHub (always fresh)
+//   2. Merge with any localStorage edits made after last push
+//   3. If GitHub fails, use localStorage
+//   4. If localStorage also fails, use embedded fallback
+// ════════════════════════════════════════════════════════════
+function initApp(data) {
+  VILLAS = data;
+  VILLAS.forEach(v => vMap[v.id] = v);
+
+  // Merge any localStorage edits that are newer than GitHub data
+  try {
+    const ls = JSON.parse(localStorage.getItem(LS_KEY)||'[]');
+    if (ls.length === VILLAS.length) {
+      ls.forEach(lv => {
+        const gv = vMap[lv.id];
+        if (!gv) return;
+        // If localStorage has more data (owner filled in), prefer it
+        if (lv.owner || lv.phone || lv.notes || lv.mawaly !== null) {
+          Object.assign(gv, lv);
+        }
+      });
+    }
+  } catch(e) {}
+
+  // Save merged state
+  saveLS();
+  applyColors(); attachEvents(); renderList();
+  document.getElementById('loading').style.display = 'none';
+}
+
+// Try GitHub first
+fetch(DATA_URL + '?v=' + Date.now(), {cache: 'no-store'})
+  .then(r => { if(!r.ok) throw new Error(); return r.json(); })
+  .then(data => initApp(data))
+  .catch(() => {
+    // GitHub failed — try localStorage
+    try {
+      const ls = JSON.parse(localStorage.getItem(LS_KEY)||'[]');
+      if (ls.length > 0) { initApp(ls); return; }
+    } catch(e) {}
+    // Last resort: embedded fallback
+    initApp([{"id":1,"address":3331,"owner":"صالح مهدي (أبو مهدي)","phone":"+973 39894778","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":2,"address":3329,"owner":"سلمان العرادي (أبو ليا)","phone":"+973 34042689","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"بلاد القديم"},{"id":3,"address":3327,"owner":"أحمد سلمان","phone":"+973 39203620","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"أبوصيبع"},{"id":4,"address":3325,"owner":"باقر العصفور","phone":"+97339777554","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":5,"address":3026,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":6,"address":3323,"owner":"ممدوح العنيسي","phone":"+973 33337266","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":7,"address":3024,"owner":"حسن النصوح","phone":"+973 36882246","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الدير"},{"id":8,"address":3321,"owner":"محمود الشهابي","phone":"+973 66994899","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الدراز"},{"id":9,"address":3022,"owner":"سيد حيدر (أبو سيد مهدي)","phone":"+973 36850028","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الماحوز"},{"id":10,"address":3319,"owner":"أحمد عبدالنبي","phone":"+973 33993320","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الحجر"},{"id":11,"address":3020,"owner":"السيد علي الموسوي (أبو سيد حسين)","phone":"+973 36850082","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"الماحوز"},{"id":12,"address":3317,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":13,"address":3018,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":14,"address":3315,"owner":"مهدي المعلم","phone":"+973 36667009","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":15,"address":3016,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":16,"address":3313,"owner":"حسن علي","phone":"+973 33122158","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"بني جمرة"},{"id":17,"address":3014,"owner":"حسين هلال","phone":"+97336655255","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":18,"address":3311,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":19,"address":3012,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":20,"address":3309,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":21,"address":3010,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":22,"address":3307,"owner":"سيد محمد هاشم","phone":"+973 39555793","status":"sold","area":190.1,"mawaly":true,"building_area":264.0,"notes":"عالي"},{"id":23,"address":3008,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":24,"address":3305,"owner":"","phone":"","status":"available","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":25,"address":3006,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":26,"address":3303,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":27,"address":3004,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":28,"address":3301,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":29,"address":3002,"owner":"","phone":"","status":"sold","area":190.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":30,"address":3233,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":31,"address":3334,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":32,"address":3231,"owner":"","phone":"","status":"available","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":33,"address":3332,"owner":"سيد علوي حيدر","phone":"+973 35342390","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":34,"address":3229,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":35,"address":3330,"owner":"","phone":"","status":"available","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":36,"address":3227,"owner":"موسى أبو بنين","phone":"+973 39227818","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":37,"address":3328,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":38,"address":3225,"owner":"صادق سلمان","phone":"+97333474715","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":39,"address":3326,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":40,"address":3223,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":41,"address":3324,"owner":"احمد الصفاف","phone":"+97333911133","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"المنامة"},{"id":42,"address":3221,"owner":"محمد الخياط","phone":"+973 32123213","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"جدحفص"},{"id":43,"address":3322,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":44,"address":3219,"owner":"جعفر شعباني","phone":"+973 36667713","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"بلاد القديم"},{"id":45,"address":3320,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":46,"address":3217,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":47,"address":3318,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":48,"address":3215,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":49,"address":3316,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":50,"address":3213,"owner":"صادق الخال","phone":"+973 33594930","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":51,"address":3314,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":52,"address":3211,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":53,"address":3312,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":54,"address":3209,"owner":"علي موسى","phone":"+973 33909291","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"المحرق"},{"id":55,"address":3310,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":56,"address":3207,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":57,"address":3308,"owner":"يوسف الفردان","phone":"+97333699269","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":58,"address":3205,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":59,"address":3306,"owner":"","phone":"","status":"available","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":60,"address":3203,"owner":"عبدالله الخباز","phone":"+973 36516257","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":61,"address":3304,"owner":"","phone":"","status":"available","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":62,"address":3201,"owner":"سيد حسن حيدر","phone":"+973 35014290","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"الدراز"},{"id":63,"address":3302,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":64,"address":3133,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":65,"address":3234,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":66,"address":3131,"owner":"","phone":"","status":"available","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":67,"address":3232,"owner":"جاسم النكاس (أبو ناصر)","phone":"+973 37198855","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":68,"address":3129,"owner":"عمار الجفيري (أبو أحمد)","phone":"+973 33779518","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":69,"address":3230,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":70,"address":3127,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":71,"address":3228,"owner":"السيد حسن الموسوي","phone":"+97333380383","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"الدراز"},{"id":72,"address":3125,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":73,"address":3226,"owner":"أحمد خلف (أبو عيسى)","phone":"+973 32005006","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":74,"address":3123,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":75,"address":3224,"owner":"أحمد الصفاف","phone":"+973 33911133","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"المنامة"},{"id":76,"address":3121,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":77,"address":3222,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":78,"address":3119,"owner":"ماجد ميرزا","phone":"+973 39222595","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"الدراز"},{"id":79,"address":3220,"owner":"حسين الأسود","phone":"+973 32255707","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"كرانة"},{"id":80,"address":3117,"owner":"آدم غازي (أبو حسين)","phone":"+973 66959556","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":81,"address":3218,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":82,"address":3115,"owner":"سيد علي الغريفي","phone":"+973 39210334","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":83,"address":3216,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":84,"address":3113,"owner":"محمد جبار (أبو آدم)","phone":"+973 33171788","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"المقشع"},{"id":85,"address":3214,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":86,"address":3111,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":87,"address":3212,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":88,"address":3109,"owner":"جابر مجيد (أبو سجاد)","phone":"+973 36229778","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":89,"address":3210,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":90,"address":3107,"owner":"السيد جلال (أبو سيد حسين)","phone":"+973 36722395","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":91,"address":3208,"owner":"","phone":"","status":"available","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":92,"address":3105,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":93,"address":3206,"owner":"عيسى (ابو ابراهيم)","phone":"+97366919199","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":94,"address":3103,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":95,"address":3204,"owner":"محمد عمران (أبو علي)","phone":"+973 36050369","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":"الجفير"},{"id":96,"address":3101,"owner":"","phone":"","status":"sold","area":171.1,"mawaly":null,"building_area":264.0,"notes":""},{"id":97,"address":3202,"owner":"سلمان غواص","phone":"+973 36522582","status":"sold","area":171.1,"mawaly":true,"building_area":264.0,"notes":""},{"id":98,"address":3062,"owner":"علي حسين","phone":"+973 66952288","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":99,"address":3134,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":100,"address":3064,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":101,"address":3132,"owner":"حسين الموت","phone":"+973 33031262","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":102,"address":3066,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":103,"address":3130,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":104,"address":3068,"owner":"علي التويلاني","phone":"+973 37336387","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"الديه"},{"id":105,"address":3128,"owner":"فيصل المؤذن","phone":"+973 38250001","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":106,"address":3070,"owner":"عبدالله خلف","phone":"+97366343313","status":"sold","area":176.2,"mawaly":true,"building_area":264.0,"notes":""},{"id":107,"address":3126,"owner":"منصور حمدان","phone":"+973 33142660","status":"sold","area":176.2,"mawaly":true,"building_area":264.0,"notes":""},{"id":108,"address":3072,"owner":"","phone":"","status":"sold","area":176.2,"mawaly":null,"building_area":264.0,"notes":""},{"id":109,"address":3124,"owner":"جاسم (ابو محمد)","phone":"+97336388283","status":"sold","area":176.2,"mawaly":true,"building_area":264.0,"notes":"راس رمان"},{"id":110,"address":3074,"owner":"","phone":"","status":"sold","area":176.2,"mawaly":null,"building_area":264.0,"notes":""},{"id":111,"address":3122,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":112,"address":3076,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":113,"address":3120,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":114,"address":3078,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":115,"address":3118,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":116,"address":3080,"owner":"محمد حسن القلعاوي (أبو حسن)","phone":"+973 39114435","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"الديه"},{"id":117,"address":3116,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":118,"address":3082,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":119,"address":3114,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":120,"address":3084,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":121,"address":3112,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":122,"address":3086,"owner":"عباس عاشور","phone":"+97339061263","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":123,"address":3110,"owner":"علي قربان","phone":"+97339905109","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":124,"address":3088,"owner":"علي ثامر","phone":"+97366354405","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":125,"address":3108,"owner":"سيد علي الموسوي","phone":"+973 39747606","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"الديه"},{"id":126,"address":3090,"owner":"زهير عبدالله (أبو علي)","phone":"+973 39545874","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":"سترة"},{"id":127,"address":3106,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":128,"address":3092,"owner":"","phone":"","status":"sold","area":176.4,"mawaly":null,"building_area":264.0,"notes":""},{"id":129,"address":3104,"owner":"حسين الباربياري","phone":"+973 39274946","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":130,"address":3102,"owner":"قاسم الوطني (أبو حيدر)","phone":"+973 66907872","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""},{"id":131,"address":3094,"owner":"محمد امان","phone":"+97337769115","status":"sold","area":176.4,"mawaly":true,"building_area":264.0,"notes":""}]);
   });
 </script>
 </body>
