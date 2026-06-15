@@ -13608,12 +13608,12 @@ function saveGHCfg(){
   setTimeout(()=>{document.getElementById('gh-cfg-modal').classList.remove('on');document.getElementById('gcm-status').textContent='';},1200);
 }
 
-async function getSHA(token,user,repo,fn){
+async function getFileSHA(token,user,repo,fn){
   const r=await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${fn}`,{headers:{'Authorization':`token ${token}`,'Accept':'application/vnd.github.v3+json'}});
   if(r.ok){const d=await r.json();return d.sha;}return null;
 }
 async function pushFile(token,user,repo,fn,content,msg){
-  const sha=await getSHA(token,user,repo,fn);
+  const sha=await getFileSHA(token,user,repo,fn);
   const enc=btoa(unescape(encodeURIComponent(content)));
   const body={message:msg,content:enc};if(sha)body.sha=sha;
   const r=await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${fn}`,{
@@ -13622,44 +13622,57 @@ async function pushFile(token,user,repo,fn,content,msg){
   });return r.ok;
 }
 
-async function pushToGitHub(){
-  const cfg=getGHCfg();
-  if(!cfg.token){showGHCfg();return;}
-  const btn=document.getElementById('gh-save-btn');
-  const icon=document.getElementById('gh-icon');
-  const txt=document.getElementById('gh-txt');
-  const sts=document.getElementById('gh-status');
-  btn.disabled=true;icon.textContent='⏳';txt.textContent='جاري الرفع…';sts.textContent='';
-  try{
-    const dataJson=JSON.stringify(VILLAS,null,0);
-    sts.textContent='رفع البيانات…';
-    // Step 1: push data.json
-    const ok=await pushFile(cfg.token,cfg.user,cfg.repo,'data.json',dataJson,'🔄 Update villa data');
-    if(!ok)throw new Error('فشل رفع data.json — تحقق من التوكن');
+async function pushToGitHub() {
+  const cfg = getGHCfg();
+  if (!cfg.token) { showGHCfg(); return; }
 
-    // Step 2: fetch index.html, replace EMBEDDED data, push it back
-    sts.textContent='تحديث صفحة العرض…';
-    const idxResp = await fetch(
-      'https://raw.githubusercontent.com/'+cfg.user+'/'+cfg.repo+'/main/index.html?v='+Date.now(),
-      {cache:'no-store'}
+  const btn  = document.getElementById('gh-save-btn');
+  const icon = document.getElementById('gh-icon');
+  const txt  = document.getElementById('gh-txt');
+  const sts  = document.getElementById('gh-status');
+  btn.disabled = true;
+  icon.textContent = '⏳'; txt.textContent = 'جاري الرفع…'; sts.textContent = '';
+
+  try {
+    const dataJson = JSON.stringify(VILLAS, null, 0);
+
+    // ── Step 1: push data.json ──────────────────────────────
+    sts.textContent = 'رفع البيانات (1/2)…';
+    const ok1 = await pushFileToGitHub(cfg.token, cfg.user, cfg.repo, 'data.json', dataJson, '🔄 Update villa data');
+    if (!ok1) throw new Error('فشل رفع data.json');
+
+    // ── Step 2: fetch index.html, replace data, push it back ──
+    sts.textContent = 'تحديث صفحة العرض (2/2)…';
+
+    // Fetch current index.html from GitHub
+    const sha = await getFileSHA(cfg.token, cfg.user, cfg.repo, 'index.html');
+    const rawResp = await fetch(
+      'https://raw.githubusercontent.com/' + cfg.user + '/' + cfg.repo + '/main/index.html?bust=' + Date.now(),
+      { cache: 'no-store' }
     );
-    if(idxResp.ok){
-      let idxHtml = await idxResp.text();
-      idxHtml = idxHtml.replace(/const EMBEDDED = \[.*?\];/s, 'const EMBEDDED = '+dataJson+';');
-      await pushFile(cfg.token,cfg.user,cfg.repo,'index.html',idxHtml,'🔄 Sync view page with latest data');
-    }
+    if (!rawResp.ok) throw new Error('فشل تحميل index.html');
+    let viewHtml = await rawResp.text();
 
-    icon.textContent='✅';txt.textContent='تم الحفظ!';sts.textContent='يظهر للجميع فوراً ✓';
+    // Replace the V= data line (the baked-in villa data)
+    viewHtml = viewHtml.replace(/const V=\[.*?\];/, 'const V=' + dataJson + ';');
+
+    const ok2 = await pushFileToGitHub(cfg.token, cfg.user, cfg.repo, 'index.html', viewHtml, '🔄 Sync view page data');
+    if (!ok2) throw new Error('فشل تحديث index.html');
+
+    icon.textContent = '✅'; txt.textContent = 'تم الحفظ!';
+    sts.textContent = 'صفحة العرض محدّثة ✓';
     showToast('✅ تم الحفظ على GitHub!');
-    setTimeout(()=>{icon.textContent='☁️';txt.textContent='حفظ على GitHub';sts.textContent='';btn.disabled=false;},3000);
-  }catch(err){
-    icon.textContent='❌';txt.textContent='فشل الرفع';sts.textContent=err.message||'خطأ';
-    showToast('❌ '+err.message);
-    setTimeout(()=>{icon.textContent='☁️';txt.textContent='حفظ على GitHub';sts.textContent='';btn.disabled=false;},3500);
+    setTimeout(() => { icon.textContent='☁️'; txt.textContent='حفظ على GitHub'; sts.textContent=''; btn.disabled=false; }, 3000);
+
+  } catch(err) {
+    icon.textContent = '❌'; txt.textContent = 'فشل الرفع';
+    sts.textContent = err.message || 'خطأ';
+    showToast('❌ ' + err.message);
+    setTimeout(() => { icon.textContent='☁️'; txt.textContent='حفظ على GitHub'; sts.textContent=''; btn.disabled=false; }, 3500);
   }
 }
 
-// ── Export ─────────────────────────────────────────────────────────────────
+
 function exportCSV(){
   const hdr='رقم الوحدة,رقم المنزل,اسم المالك,رقم الجوال,الحالة,نوع المالك,مساحة الأرض,مساحة البناء,ملاحظات';
   const rows=VILLAS.map(v=>[v.id,v.address,`"${(v.owner||'').replace(/"/g,'""')}"`,`"${(v.phone||'').replace(/"/g,'""')}"`,
