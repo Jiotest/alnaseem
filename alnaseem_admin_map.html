@@ -13509,4 +13509,23 @@ try {
   console.error('Init error:', err);
 }
 </script>
-</body></html>
+</body></html
+// INIT: show data immediately, load SVG in background
+try {
+  const ls = JSON.parse(localStorage.getItem(LS)||'[]');
+  V = ls.length === 131 ? ls : JSON.parse(JSON.stringify(BAKED));
+} catch(e) {
+  V = JSON.parse(JSON.stringify(BAKED));
+}
+V.forEach(v => vm[v.id] = v);
+sLS(); rl();
+document.getElementById('loading').style.display = 'none';
+document.getElementById('mapwrap').innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:var(--ink3)"><div style="width:36px;height:36px;border:3px solid rgba(181,146,42,.2);border-top-color:var(--gold);border-radius:50%;animation:sp .8s linear infinite"></div><div style="font-size:12px">جاري تحميل الخريطة…</div></div>';
+fetch('map.svg')
+  .then(r=>r.text())
+  .then(s=>{document.getElementById('mapwrap').innerHTML=s;ac();ae();})
+  .catch(()=>{document.getElementById('mapwrap').innerHTML='<div style="padding:40px;text-align:center;color:var(--red)">فشل تحميل الخريطة</div>';});
+
+</script>
+</body>
+</html>
