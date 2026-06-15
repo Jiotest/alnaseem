@@ -13638,7 +13638,7 @@ async function pushToGitHub() {
 
     // ── Step 1: push data.json ──────────────────────────────
     sts.textContent = 'رفع البيانات (1/2)…';
-    const ok1 = await pushFileToGitHub(cfg.token, cfg.user, cfg.repo, 'data.json', dataJson, '🔄 Update villa data');
+    const ok1 = await pushFile(cfg.token, cfg.user, cfg.repo, 'data.json', dataJson, '🔄 Update villa data');
     if (!ok1) throw new Error('فشل رفع data.json');
 
     // ── Step 2: fetch index.html, replace data, push it back ──
@@ -13656,7 +13656,7 @@ async function pushToGitHub() {
     // Replace the V= data line (the baked-in villa data)
     viewHtml = viewHtml.replace(/const V=\[.*?\];/, 'const V=' + dataJson + ';');
 
-    const ok2 = await pushFileToGitHub(cfg.token, cfg.user, cfg.repo, 'index.html', viewHtml, '🔄 Sync view page data');
+    const ok2 = await pushFile(cfg.token, cfg.user, cfg.repo, 'index.html', viewHtml, '🔄 Sync view page data');
     if (!ok2) throw new Error('فشل تحديث index.html');
 
     icon.textContent = '✅'; txt.textContent = 'تم الحفظ!';
