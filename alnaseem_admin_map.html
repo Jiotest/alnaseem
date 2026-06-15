@@ -14159,64 +14159,39 @@ async function pushFileToGitHub(token, user, repo, filename, content, message) {
 
 async function pushToGitHub() {
   const cfg = getGHConfig();
-  if (!cfg.token) {
-    showGHSettings();
-    document.getElementById('gh-modal-status').textContent = '⚠️ أدخل التوكن أولاً';
-    return;
-  }
+  if (!cfg.token) { showGHSettings(); return; }
 
-  // Update UI
-  const btn = document.getElementById('gh-save-btn');
-  const icon = document.getElementById('gh-btn-icon');
-  const text = document.getElementById('gh-btn-text');
+  const btn    = document.getElementById('gh-save-btn');
+  const icon   = document.getElementById('gh-btn-icon');
+  const text   = document.getElementById('gh-btn-text');
   const status = document.getElementById('gh-status');
-  btn.style.opacity = '0.7'; btn.disabled = true;
-  icon.textContent = '⏳'; text.textContent = 'جاري الرفع...';
-  status.textContent = '';
+  btn.style.opacity='0.7'; btn.disabled=true;
+  icon.textContent='⏳'; text.textContent='جاري الرفع...'; status.textContent='';
 
   try {
-    // Build updated admin HTML with current VILLAS data injected
-    const villaJson = JSON.stringify(VILLAS, null, 0);
-    
-    // Fetch current admin page from GitHub to get its content
-    const adminSHA = await getFileSHA(cfg.token, cfg.user, cfg.repo, 'alnaseem_admin_map.html');
-    
-    // Get current page source and update VILLAS_RAW
-    let adminContent = document.documentElement.outerHTML;
-    // Replace VILLAS_RAW with current data
-    adminContent = adminContent.replace(
-      /const VILLAS_RAW = \[.*?\];/s,
-      `const VILLAS_RAW = ${villaJson};`
-    );
-    
-    // Build view HTML (regenerate from current data)
-    const viewContent = buildViewHTML(villaJson);
+    const dataJson = JSON.stringify(VILLAS, null, 0);
 
-    status.textContent = 'رفع لوحة الإدارة...';
-    const ok1 = await pushFileToGitHub(cfg.token, cfg.user, cfg.repo, 'alnaseem_admin_map.html', adminContent, '🔄 Update villa data');
-    
-    status.textContent = 'رفع صفحة العرض...';
-    const ok2 = await pushFileToGitHub(cfg.token, cfg.user, cfg.repo, 'index.html', viewContent, '🔄 Update view page');
+    // 1. Push data.json  (fast — small file)
+    status.textContent = 'رفع البيانات...';
+    const ok1 = await pushFileToGitHub(cfg.token, cfg.user, cfg.repo, 'data.json', dataJson, '🔄 Update villa data');
+    if (!ok1) throw new Error('فشل رفع data.json');
 
-    if (ok1 && ok2) {
-      icon.textContent = '✅'; text.textContent = 'تم الحفظ على GitHub!';
-      status.textContent = 'سيظهر التحديث خلال دقيقة';
-      showToast('✅ تم الرفع على GitHub بنجاح!');
-      setTimeout(() => {
-        icon.textContent = '☁️'; text.textContent = 'حفظ على GitHub';
-        status.textContent = '';
-        btn.style.opacity = '1'; btn.disabled = false;
-      }, 3000);
-    } else {
-      throw new Error('فشل رفع أحد الملفات');
-    }
-  } catch(err) {
-    icon.textContent = '❌'; text.textContent = 'فشل الرفع';
-    status.textContent = err.message || 'تحقق من التوكن';
-    showToast('❌ فشل الرفع: ' + (err.message || 'خطأ غير معروف'));
+    icon.textContent='✅'; text.textContent='تم الحفظ!';
+    status.textContent = 'البيانات محدّثة للجميع ✓';
+    showToast('✅ تم الحفظ على GitHub — يظهر للجميع فوراً!');
+
     setTimeout(() => {
-      icon.textContent = '☁️'; text.textContent = 'حفظ على GitHub';
-      status.textContent = ''; btn.style.opacity = '1'; btn.disabled = false;
+      icon.textContent='☁️'; text.textContent='حفظ على GitHub';
+      status.textContent=''; btn.style.opacity='1'; btn.disabled=false;
+    }, 3000);
+
+  } catch(err) {
+    icon.textContent='❌'; text.textContent='فشل الرفع';
+    status.textContent = err.message || 'تحقق من التوكن';
+    showToast('❌ ' + (err.message||'فشل الرفع'));
+    setTimeout(() => {
+      icon.textContent='☁️'; text.textContent='حفظ على GitHub';
+      status.textContent=''; btn.style.opacity='1'; btn.disabled=false;
     }, 3000);
   }
 }
