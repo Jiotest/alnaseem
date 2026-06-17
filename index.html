@@ -41,7 +41,6 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 /* ── Villa shapes ── */
 .villa-shape{fill:#9BA8B0;opacity:0.65;cursor:pointer;stroke:rgba(255,255,255,.9);stroke-width:0.7}
 .villa-shape:hover{stroke:#222;stroke-width:2;opacity:1}
-.villa-shape.dimmed{opacity:.06;pointer-events:none}
 .villa-shape.sel-s{stroke:#F5C842;stroke-width:3;opacity:1}
 .cell-lbl{fill:#fff;paint-order:stroke;stroke:rgba(0,0,0,.6);stroke-width:.7px;font-family:system-ui,'Segoe UI',sans-serif;font-size:7px;font-weight:700;direction:ltr;unicode-bidi:isolate;transition:opacity .15s}
 
@@ -425,15 +424,36 @@ function gp(v) {
 }
 
 // ── Map colors ───────────────────────────────────────────────────────────
+// Does a villa match the active search box + filter dropdown?
+function vmatch(v) {
+  var q = (document.getElementById('sq').value || '').trim().toLowerCase();
+  var s = document.getElementById('sf').value;
+  var mq = !q || String(v.address).includes(q) || (v.owner||'').toLowerCase().includes(q);
+  var ms = s==='all'
+    || (s==='occ'     && v.status==='sold')
+    || (s==='unocc'   && v.status==='reserved')
+    || (s==='und'     && (!v.status||v.status==='available'));
+  return mq && ms;
+}
+
 function applyColors() {
   document.querySelectorAll('.villa-shape').forEach(function(el) {
     var v = vm[parseInt(el.dataset.num, 10)];
     if (!v) return;
+    var ok = vmatch(v);
     el.style.fill = gc(v);
-    el.style.opacity = v.id === selId ? '1' : '0.83';
     el.classList.toggle('sel-s', v.id === selId);
     el.style.stroke = v.id === selId ? '#F5C842' : 'rgba(255,255,255,.6)';
     el.style.strokeWidth = v.id === selId ? '3' : '0.5';
+    if (ok) {
+      el.style.opacity = v.id === selId ? '1' : '0.83';
+      el.style.pointerEvents = '';
+    } else {
+      el.style.opacity = '0';
+      el.style.pointerEvents = 'none';
+    }
+    var lb = document.getElementById('lbl-' + v.id);
+    if (lb) lb.style.opacity = ok ? '' : '0';
   });
 }
 
@@ -478,21 +498,9 @@ function buildLabels() {
 
 // ── Filter ───────────────────────────────────────────────────────────────
 function filt() {
-  var q = (document.getElementById('sq').value || '').trim().toLowerCase();
-  var s = document.getElementById('sf').value;
   var n = 0;
-  document.querySelectorAll('.villa-shape').forEach(function(el) {
-    var v = vm[parseInt(el.dataset.num, 10)]; if (!v) return;
-    var mq = !q || String(v.address).includes(q) || (v.owner||'').toLowerCase().includes(q);
-    var ms = s==='all'
-      || (s==='occ'     && v.status==='sold')
-      || (s==='unocc'   && v.status==='reserved')
-      || (s==='und'     && (!v.status||v.status==='available'));
-    el.classList.toggle('dimmed', !(mq && ms));
-    var lb = document.getElementById('lbl-' + v.id);
-    if (lb) lb.style.opacity = (mq && ms) ? '' : '0';
-    if (mq && ms) n++;
-  });
+  V.forEach(function(v) { if (vmatch(v)) n++; });
+  applyColors();
   updateStats(n);
 }
 
@@ -625,9 +633,8 @@ function saveVilla() {
   var i = V.findIndex(function(x) { return x.id === selId; });
   if (i !== -1) V[i] = v;
   try { localStorage.setItem(LS, JSON.stringify(V)); } catch(e) {}
-  applyColors();
-  updateStats();
   buildLabels();
+  filt();
   var fl = document.getElementById('ep-flash');
   fl.classList.add('show');
   setTimeout(function() { fl.classList.remove('show'); }, 2000);
@@ -641,7 +648,7 @@ function clearVilla() {
   var i = V.findIndex(function(x) { return x.id === selId; });
   if (i !== -1) V[i] = v;
   try { localStorage.setItem(LS, JSON.stringify(V)); } catch(e) {}
-  applyColors(); updateStats(); buildLabels();
+  buildLabels(); filt();
   openEditPanel(v);
   toast('تم مسح الوحدة ' + v.address);
 }
