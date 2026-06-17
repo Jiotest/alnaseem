@@ -144,8 +144,6 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
   </div>
   <select class="fsel" id="sf" onchange="filt()">
     <option value="all">الكل</option>
-    <option value="mawaly">موالي</option>
-    <option value="not">غير موالي</option>
     <option value="occ">مسكون</option>
     <option value="unocc">غير مسكون</option>
     <option value="und">غير محدد</option>
@@ -157,13 +155,10 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 <!-- Stats bar -->
 <div class="statsbar">
   <div class="sc"><b id="st">131</b>إجمالي</div>
-  <div class="sc"><b id="sm" style="color:#2D6A1F">0</b>موالي</div>
-  <div class="sc"><b id="sn" style="color:#C0392B">0</b>غير موالي</div>
-  <div class="sc"><b id="so" style="color:#D4880A">0</b>مسكون</div>
+  <div class="sc"><b id="so" style="color:#2D6A1F">0</b>مسكون</div>
   <div class="sc"><b id="su" style="color:#6B8BA4">0</b>غير محدد</div>
   <div class="legend">
-    <div class="li"><div class="ld" style="background:#2D6A1F"></div>موالي</div>
-    <div class="li"><div class="ld" style="background:#C0392B"></div>غير موالي</div>
+    <div class="li"><div class="ld" style="background:#2D6A1F"></div>مسكون</div>
     <div class="li"><div class="ld" style="background:#D4880A"></div>غير مسكون</div>
     <div class="li"><div class="ld" style="background:#9BA8B0"></div>غير محدد</div>
   </div>
@@ -420,14 +415,12 @@ var selId = null;
 function gc(v) {
   if (!v.status || v.status==='available') return '#9BA8B0';
   if (v.status==='reserved') return '#D4880A';
-  if (v.mawaly===null || v.mawaly===undefined) return '#9BA8B0';
-  return v.mawaly ? '#2D6A1F' : '#C0392B';
+  return '#2D6A1F';
 }
 function gp(v) {
   if (!v.status || v.status==='available') return ['pu','غير محدد'];
   if (v.status==='reserved') return ['pr','غير مسكون'];
-  if (v.mawaly===null || v.mawaly===undefined) return ['pu','غير محدد'];
-  return v.mawaly ? ['pm','موالي'] : ['pn','غير موالي'];
+  return ['pm','مسكون'];
 }
 
 // ── Map colors ───────────────────────────────────────────────────────────
@@ -445,13 +438,9 @@ function applyColors() {
 
 // ── Stats ────────────────────────────────────────────────────────────────
 function updateStats(n) {
-  var m  = V.filter(function(v) { return v.mawaly===true  && v.status==='sold'; }).length;
-  var nm = V.filter(function(v) { return v.mawaly===false && v.status==='sold'; }).length;
   var o  = V.filter(function(v) { return v.status==='sold'; }).length;
-  var u  = V.filter(function(v) { return !v.status||v.status==='available'||v.mawaly===null||v.mawaly===undefined; }).length;
+  var u  = V.filter(function(v) { return !v.status||v.status==='available'; }).length;
   document.getElementById('st').textContent = n !== undefined ? n : V.length;
-  document.getElementById('sm').textContent = m;
-  document.getElementById('sn').textContent = nm;
   document.getElementById('so').textContent = o;
   document.getElementById('su').textContent = u;
 }
@@ -465,11 +454,9 @@ function filt() {
     var v = vm[parseInt(el.dataset.num, 10)]; if (!v) return;
     var mq = !q || String(v.address).includes(q) || (v.owner||'').toLowerCase().includes(q);
     var ms = s==='all'
-      || (s==='mawaly'  && v.mawaly===true  && v.status==='sold')
-      || (s==='not'     && v.mawaly===false && v.status==='sold')
       || (s==='occ'     && v.status==='sold')
       || (s==='unocc'   && v.status==='reserved')
-      || (s==='und'     && (!v.status||v.status==='available'||v.mawaly===null||v.mawaly===undefined));
+      || (s==='und'     && (!v.status||v.status==='available'));
     el.classList.toggle('dimmed', !(mq && ms));
     if (mq && ms) n++;
   });
@@ -577,11 +564,7 @@ function openEditPanel(v) {
     + '<div class="fg"><label class="flbl">المنطقة</label><input class="finp" id="fn" type="text" value="' + (v.notes||'') + '" placeholder="المنطقة…"/></div>'
     + '</div><div class="fsec"><div class="ftitle">الحالة والتصنيف</div>'
     + '<div class="fg"><label class="flbl">حالة الوحدة</label><select class="fsel2" id="fst">' + st + '</select></div>'
-    + '<div class="fg"><label class="flbl">نوع المالك</label><div class="mtog">'
-    + '<button class="mt ' + (v.mawaly===true?'onm':'') + '" id="bm" onclick="setM(true)">✓ موالي</button>'
-    + '<button class="mt ' + (v.mawaly===false?'onn':'') + '" id="bn" onclick="setM(false)">✗ غير موالي</button>'
-    + '<button class="mt ' + (v.mawaly===null||v.mawaly===undefined?'onu':'') + '" id="bu" onclick="setM(null)">— غير محدد</button>'
-    + '</div></div></div>';
+    + '</div></div>';
 }
 function closeEditPanel() {
   document.getElementById('edit-panel').classList.remove('open');
@@ -593,9 +576,6 @@ function closeEditPanel() {
 function setM(val) {
   if (!selId) return;
   vm[selId].mawaly = val;
-  document.getElementById('bm').className = 'mt' + (val===true  ? ' onm' : '');
-  document.getElementById('bn').className = 'mt' + (val===false ? ' onn' : '');
-  document.getElementById('bu').className = 'mt' + (val===null||val===undefined ? ' onu' : '');
   applyColors();
 }
 
