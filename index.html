@@ -67,76 +67,6 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 @keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
 @keyframes bgFade{from{opacity:0}to{opacity:1}}
 
-@media(max-width:600px){
-  *{-webkit-tap-highlight-color:transparent}
-
-  /* ── Header ── */
-  .topbar{flex-wrap:wrap;row-gap:11px;padding:13px 14px}
-  .brand{flex:1 1 auto}
-  .logo{width:34px;height:34px;font-size:17px}
-  .site-title{font-size:16px}
-  .site-sub{font-size:10.5px}
-  #admin-btn,#logout-btn{padding:9px 15px;font-size:12.5px;border-radius:11px}
-  #admin-btn:active,#logout-btn:active{transform:scale(.95)}
-  .srch{order:5;flex-basis:100%;max-width:100%;margin:0}
-  .srch input{padding:12px 38px 12px 12px;font-size:16px;border-radius:12px}
-  .srch-icon{font-size:15px;right:13px}
-  .fsel{display:none}
-
-  /* ── Stat cards ── */
-  .statsbar{padding:10px 14px 2px;gap:8px;border-bottom:none;background:transparent}
-  .sc{flex:1;background:#fff;border:1px solid #EDE8E0;border-radius:14px;padding:10px 6px;font-size:11px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-  .sc b{font-size:21px}
-  .legend{display:none}
-
-  /* ── Filter chips ── */
-  #fchips{display:flex;gap:8px;padding:8px 14px 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  #fchips::-webkit-scrollbar{display:none}
-  .fchip{flex:0 0 auto;padding:9px 17px;border:1.5px solid #EDE8E0;background:#fff;color:#78716C;border-radius:22px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;white-space:nowrap;transition:transform .15s,background .2s,color .2s,border-color .2s}
-  .fchip:active{transform:scale(.94)}
-  .fchip.on{background:#1C1917;color:#fff;border-color:#1C1917}
-
-  /* ── Segmented toggle with sliding indicator ── */
-  #view-toggle{display:flex;position:relative;gap:0;margin:8px 14px 2px;padding:5px;background:#EDE8E0;border-radius:14px}
-  .vt{position:relative;z-index:1;color:#78716C;background:none;box-shadow:none;padding:11px;font-size:14.5px;transition:color .25s}
-  .vt.on{background:none;box-shadow:none;color:#1C1917}
-  .vt-ind{display:block;position:absolute;z-index:0;top:5px;bottom:5px;right:5px;width:calc(50% - 5px);background:#fff;border-radius:10px;box-shadow:0 2px 7px rgba(0,0,0,.13);transition:transform .32s cubic-bezier(.4,1.25,.5,1)}
-  body.show-list .vt-ind{transform:translateX(calc(-100% - 0px))}
-
-  /* ── View area + transitions ── */
-  #main-view{display:block;padding:10px 12px calc(14px + env(safe-area-inset-bottom,0px))}
-  #map-wrap{flex:none}
-  #map-box>div{border-radius:18px}
-  #list-wrap{max-height:none;border:none;border-radius:0;background:transparent}
-  body:not(.show-list) #list-wrap{display:none}
-  body.show-list #map-wrap{display:none}
-  body:not(.show-list) #map-wrap{animation:viewIn .32s ease}
-  body.show-list #list-wrap{animation:viewIn .32s ease}
-
-  /* ── List as cards ── */
-  .list-head{background:transparent;border:none;padding:2px 4px 10px;font-size:13px;position:static}
-  #house-list{gap:9px}
-  .lrow{background:#fff;border:1px solid #EDE8E0;border-radius:15px;padding:13px 15px;gap:13px;box-shadow:0 1px 3px rgba(0,0,0,.04);animation:rowIn .35s both}
-  .lrow,.lrow:last-child{border-bottom:1px solid #EDE8E0}
-  .lrow:active{transform:scale(.98);background:#FAF7F2}
-  .lrow-dot{width:13px;height:13px}
-  .lrow-addr{font-size:18px}
-  .lrow-id{font-size:12px}
-  .lrow-owner{font-size:13px}
-  .lrow-area{font-size:11px}
-
-  /* ── Detail modal → bottom sheet ── */
-  #modal-wrap{align-items:flex-end}
-  #modal-wrap.on{animation:bgFade .25s ease}
-  .modal{width:100%;max-width:100%;border-radius:24px 24px 0 0;animation:sheetUp .34s cubic-bezier(.22,.61,.36,1)}
-  .modal-hero{padding:26px 20px 16px}
-  .modal-hero::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:42px;height:5px;border-radius:5px;background:rgba(255,255,255,.28)}
-  .modal-addr{font-size:38px}
-  .modal-x{font-size:24px;top:15px;left:15px}
-  .modal-body{padding:16px 20px calc(20px + env(safe-area-inset-bottom,0px))}
-  .mrow{padding:11px 0;font-size:14px}
-}
-
 
 /* ── Villa shapes ── */
 .villa-shape{fill:#9BA8B0;opacity:0.65;cursor:pointer;stroke:rgba(255,255,255,.9);stroke-width:0.7}
@@ -252,6 +182,75 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 #ghcfg-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:30000;align-items:center;justify-content:center}
 #ghcfg-wrap.on{display:flex}
 .ghcfg-box{background:#fff;border-radius:14px;padding:20px 22px;max-width:300px;width:90%;direction:rtl;font-family:'Tajawal',sans-serif}
+@media(max-width:600px){
+  *{-webkit-tap-highlight-color:transparent}
+
+  /* ── Header ── */
+  .topbar{flex-wrap:wrap;row-gap:11px;padding:13px 14px}
+  .brand{flex:1 1 auto}
+  .logo{width:34px;height:34px;font-size:17px}
+  .site-title{font-size:16px}
+  .site-sub{font-size:10.5px}
+  #admin-btn,#logout-btn{padding:9px 15px;font-size:12.5px;border-radius:11px}
+  #admin-btn:active,#logout-btn:active{transform:scale(.95)}
+  .srch{order:5;flex-basis:100%;max-width:100%;margin:0}
+  .srch input{padding:12px 38px 12px 12px;font-size:16px;border-radius:12px}
+  .srch-icon{font-size:15px;right:13px}
+  .fsel{display:none}
+
+  /* ── Stat cards ── */
+  .statsbar{padding:10px 14px 2px;gap:8px;border-bottom:none;background:transparent}
+  .sc{flex:1;background:#fff;border:1px solid #EDE8E0;border-radius:14px;padding:10px 6px;font-size:11px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .sc b{font-size:21px}
+  .legend{display:none}
+
+  /* ── Filter chips ── */
+  #fchips{display:flex;gap:8px;padding:8px 14px 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  #fchips::-webkit-scrollbar{display:none}
+  .fchip{flex:0 0 auto;padding:9px 17px;border:1.5px solid #EDE8E0;background:#fff;color:#78716C;border-radius:22px;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;white-space:nowrap;transition:transform .15s,background .2s,color .2s,border-color .2s}
+  .fchip:active{transform:scale(.94)}
+  .fchip.on{background:#1C1917;color:#fff;border-color:#1C1917}
+
+  /* ── Segmented toggle with sliding indicator ── */
+  #view-toggle{display:flex;position:relative;gap:0;margin:8px 14px 2px;padding:5px;background:#EDE8E0;border-radius:14px}
+  .vt{position:relative;z-index:1;color:#78716C;background:none;box-shadow:none;padding:11px;font-size:14.5px;transition:color .25s}
+  .vt.on{background:none;box-shadow:none;color:#1C1917}
+  .vt-ind{display:block;position:absolute;z-index:0;top:5px;bottom:5px;right:5px;width:calc(50% - 5px);background:#fff;border-radius:10px;box-shadow:0 2px 7px rgba(0,0,0,.13);transition:transform .32s cubic-bezier(.4,1.25,.5,1)}
+  body.show-list .vt-ind{transform:translateX(calc(-100% - 0px))}
+
+  /* ── View area + transitions ── */
+  #main-view{display:block;padding:10px 12px calc(14px + env(safe-area-inset-bottom,0px))}
+  #map-wrap{flex:none}
+  #map-box>div{border-radius:18px}
+  #list-wrap{max-height:none;border:none;border-radius:0;background:transparent}
+  body:not(.show-list) #list-wrap{display:none}
+  body.show-list #map-wrap{display:none}
+  body:not(.show-list) #map-wrap{animation:viewIn .32s ease}
+  body.show-list #list-wrap{animation:viewIn .32s ease}
+
+  /* ── List as cards ── */
+  .list-head{background:transparent;border:none;padding:2px 4px 10px;font-size:13px;position:static}
+  #house-list{gap:9px}
+  .lrow{background:#fff;border:1px solid #EDE8E0;border-radius:15px;padding:13px 15px;gap:13px;box-shadow:0 1px 3px rgba(0,0,0,.04);animation:rowIn .35s both}
+  .lrow,.lrow:last-child{border-bottom:1px solid #EDE8E0}
+  .lrow:active{transform:scale(.98);background:#FAF7F2}
+  .lrow-dot{width:13px;height:13px}
+  .lrow-addr{font-size:18px}
+  .lrow-id{font-size:12px}
+  .lrow-owner{font-size:13px}
+  .lrow-area{font-size:11px}
+
+  /* ── Detail modal → bottom sheet ── */
+  #modal-wrap{align-items:flex-end}
+  #modal-wrap.on{animation:bgFade .25s ease}
+  .modal{width:100%;max-width:100%;border-radius:24px 24px 0 0;animation:sheetUp .34s cubic-bezier(.22,.61,.36,1)}
+  .modal-hero{padding:26px 20px 16px}
+  .modal-hero::before{content:'';position:absolute;top:9px;left:50%;transform:translateX(-50%);width:42px;height:5px;border-radius:5px;background:rgba(255,255,255,.28)}
+  .modal-addr{font-size:38px}
+  .modal-x{font-size:24px;top:15px;left:15px}
+  .modal-body{padding:16px 20px calc(20px + env(safe-area-inset-bottom,0px))}
+  .mrow{padding:11px 0;font-size:14px}
+}
 </style>
 </head>
 <body>
