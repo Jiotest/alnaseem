@@ -120,6 +120,7 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 #ep-overlay.on{display:block}
 
 /* ── Toast ── */
+@keyframes spin{to{transform:rotate(360deg)}}
 #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(50px);background:#1C1917;color:#fff;padding:9px 18px;border-radius:25px;font-size:12px;font-weight:500;z-index:99999;pointer-events:none;transition:transform .3s,opacity .3s;opacity:0;white-space:nowrap}
 #toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
@@ -170,156 +171,12 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 
 <!-- Map -->
 <div id="map-wrap">
-  <div id="map-box"><svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-<rect width="1000" height="1000" fill="#E8E0D5"/>
-<rect x="260" y="300" width="170" height="430" rx="4" fill="#D4CCC2" opacity="0.5"/>
-<rect x="440" y="300" width="160" height="430" rx="4" fill="#D4CCC2" opacity="0.5"/>
-<rect x="610" y="300" width="160" height="430" rx="4" fill="#D4CCC2" opacity="0.5"/>
-<rect x="780" y="600" width="120" height="180" rx="4" fill="#D4CCC2" opacity="0.5"/>
-<rect x="250" y="280" width="680" height="10" rx="3" fill="#C8BFB0" opacity="0.6"/>
-<rect x="250" y="730" width="680" height="10" rx="3" fill="#C8BFB0" opacity="0.6"/>
-<g id="landmarks-map">
-<rect id="prop-131" x="831.09" y="648.15" transform="matrix(2.1e-03 -1 1 2.1e-03 163.8 1515.2)" class="villa-shape" data-num="131" width="19.99" height="54.71"></rect>
-<polygon id="prop-130" class="villa-shape" data-num="130" points="813.68,685.42 758.94,685.32 758.97,665.3 813.73,665.43 "></polygon>
-<polygon id="prop-129" class="villa-shape" data-num="129" points="813.73,665.43 758.97,665.3 759.03,645.18 813.77,645.3 "></polygon>
-<rect id="prop-128" x="830.95" y="627.99" transform="matrix(2.1e-03 -1 1 2.1e-03 183.9 1494.99)" class="villa-shape" data-num="128" width="20.13" height="54.71"></rect>
-<polygon id="prop-127" class="villa-shape" data-num="127" points="813.77,645.3 759.03,645.18 759.06,625.05 813.8,625.18 "></polygon>
-<rect id="prop-126" x="831.1" y="607.97" transform="matrix(2.1e-03 -1 1 2.1e-03 204.1 1475.1)" class="villa-shape" data-num="126" width="20.12" height="54.71"></rect>
-<polygon id="prop-125" class="villa-shape" data-num="125" points="813.8,625.18 759.06,625.05 759.1,604.93 813.84,605.04 "></polygon>
-<rect id="prop-124" x="831.03" y="587.75" transform="matrix(2.1e-03 -1 1 2.1e-03 224.2 1454.9)" class="villa-shape" data-num="124" width="20.13" height="54.71"></rect>
-<polygon id="prop-123" class="villa-shape" data-num="123" points="813.84,605.04 759.1,604.93 759.14,584.83 813.89,584.94 "></polygon>
-<rect id="prop-122" x="831.2" y="567.72" transform="matrix(2.1e-03 -1 1 2.1e-03 244.4 1435.1)" class="villa-shape" data-num="122" width="20.1" height="54.71"></rect>
-<polygon id="prop-121" class="villa-shape" data-num="121" points="813.89,584.94 813.89,584.94 759.14,584.83 759.18,564.72 813.93,564.82 "></polygon>
-<polygon id="prop-120" class="villa-shape" data-num="120" points="813.89,584.94 813.89,584.94 813.93,564.82 868.64,564.94 868.6,585.06 "></polygon>
-<rect id="prop-119" x="776.56" y="527.36" transform="matrix(2.1e-03 -1 1 2.1e-03 230.3 1340.2)" class="villa-shape" data-num="119" width="20.13" height="54.74"></rect>
-<rect id="prop-118" x="831.26" y="527.49" transform="matrix(2.1e-03 -1 1 2.1e-03 284.7 1395.0)" class="villa-shape" data-num="118" width="20.13" height="54.71"></rect>
-<polygon id="prop-117" class="villa-shape" data-num="117" points="813.97,544.69 759.23,544.58 759.27,524.44 814.01,524.56 "></polygon>
-<rect id="prop-116" x="831.31" y="507.35" transform="matrix(2.1e-03 -1 1 2.1e-03 304.9 1374.9)" class="villa-shape" data-num="116" width="20.12" height="54.71"></rect>
-<polygon id="prop-115" class="villa-shape" data-num="115" points="814.01,524.56 759.27,524.44 759.31,504.33 814.05,504.44 "></polygon>
-<rect id="prop-114" x="831.25" y="487.17" transform="matrix(2.1e-03 -1 1 2.1e-03 325.0 1354.8)" class="villa-shape" data-num="114" width="20.13" height="54.71"></rect>
-<rect id="prop-113" x="776.69" y="466.99" transform="matrix(2.1e-03 -1 1 2.1e-03 290.7 1280.1)" class="villa-shape" data-num="113" width="20.1" height="54.74"></rect>
-<polygon id="prop-112" class="villa-shape" data-num="112" points="868.77,504.55 814.05,504.44 814.1,484.34 868.81,484.47 "></polygon>
-<rect id="prop-111" x="776.63" y="446.83" transform="matrix(2.1e-03 -1 1 2.1e-03 310.8 1259.9)" class="villa-shape" data-num="111" width="20.12" height="54.74"></rect>
-<polygon id="prop-110" class="villa-shape" data-num="110" points="868.81,484.47 814.1,484.34 814.14,464.22 868.85,464.34 "></polygon>
-<polygon id="prop-109" class="villa-shape" data-num="109" points="814.14,464.22 759.39,464.11 759.44,443.97 814.17,444.08 "></polygon>
-<rect id="prop-108" x="831.45" y="426.87" transform="matrix(2.1e-03 -1 1 2.1e-03 385.5 1294.8)" class="villa-shape" data-num="108" width="20.14" height="54.71"></rect>
-<rect id="prop-107" x="776.69" y="406.57" transform="matrix(1.9e-03 -1 1 1.9e-03 351.3 1219.8)" class="villa-shape" data-num="107" width="20.11" height="54.73"></rect>
-<polygon id="prop-106" class="villa-shape" data-num="106" points="868.89,444.19 814.17,444.08 814.21,423.97 868.93,424.07 "></polygon>
-<rect id="prop-105" x="776.75" y="386.48" transform="matrix(1.9e-03 -1 1 1.9e-03 371.4 1199.8)" class="villa-shape" data-num="105" width="20.07" height="54.73"></rect>
-<polygon id="prop-104" class="villa-shape" data-num="104" points="868.93,424.07 814.21,423.97 814.26,403.9 868.98,404.02 "></polygon>
-<rect id="prop-103" x="776.77" y="366.37" transform="matrix(1.9e-03 -1 1 1.9e-03 391.6 1179.8)" class="villa-shape" data-num="103" width="20.15" height="54.73"></rect>
-<rect id="prop-102" x="831.54" y="366.51" transform="matrix(2.1e-03 -1 1 2.1e-03 446.0 1234.7)" class="villa-shape" data-num="102" width="20.15" height="54.72"></rect>
-<polygon id="prop-101" class="villa-shape" data-num="101" points="759.59,363.5 759.56,383.63 814.3,383.75 814.34,363.61 "></polygon>
-<polygon id="prop-100" class="villa-shape" data-num="100" points="869.02,383.85 814.3,383.75 814.34,363.61 869.06,363.72 "></polygon>
-<rect id="prop-99" x="776.98" y="326.13" transform="matrix(2.1e-03 -1 1 2.1e-03 431.9 1139.8)" class="villa-shape" data-num="99" width="20.14" height="54.74"></rect>
-<rect id="prop-98" x="831.67" y="326.24" transform="matrix(2.1e-03 -1 1 2.1e-03 486.4 1194.6)" class="villa-shape" data-num="98" width="20.14" height="54.71"></rect>
-<rect id="prop-97" x="619.29" y="648.68" transform="matrix(2.3e-03 -1 1 2.3e-03 -47.3 1303.1)" class="villa-shape" data-num="97" width="20.13" height="53.11"></rect>
-<rect id="prop-96" x="672.29" y="648.68" transform="matrix(2.1e-03 -1 1 2.1e-03 5.7 1356.2)" class="villa-shape" data-num="96" width="20.13" height="53.14"></rect>
-<polygon id="prop-95" class="villa-shape" data-num="95" points="655.86,665.17 602.76,665.05 602.8,645.31 655.9,645.24 "></polygon>
-<polygon id="prop-94" class="villa-shape" data-num="94" points="709,665.28 655.86,665.17 655.9,645.24 709.04,645.16 "></polygon>
-<polygon id="prop-93" class="villa-shape" data-num="93" points="655.9,645.24 602.8,645.31 602.84,624.8 655.96,624.91 655.9,645.03 "></polygon>
-<polygon id="prop-92" class="villa-shape" data-num="92" points="709.04,645.16 655.9,645.24 655.9,645.03 655.96,624.91 709.08,625.03 "></polygon>
-<polygon id="prop-91" class="villa-shape" data-num="91" points="655.96,624.91 602.84,624.8 602.88,604.68 656,604.79 "></polygon>
-<polygon id="prop-90" class="villa-shape" data-num="90" points="709.08,625.03 655.96,624.91 656,604.79 656.01,604.78 709.11,604.9 "></polygon>
-<polygon id="prop-89" class="villa-shape" data-num="89" points="656.01,604.78 656,604.79 602.88,604.68 602.92,584.58 656.05,584.69 "></polygon>
-<polygon id="prop-88" class="villa-shape" data-num="88" points="709.12,604.89 709.11,604.9 656.01,604.78 656.05,584.69 656.05,584.69 
-709.17,584.81 "></polygon>
-<polygon id="prop-87" class="villa-shape" data-num="87" points="656.05,584.69 656.05,584.69 602.92,584.58 602.97,564.46 656.09,564.57 "></polygon>
-<polygon id="prop-86" class="villa-shape" data-num="86" points="709.17,584.81 656.05,584.69 656.09,564.57 709.21,564.68 "></polygon>
-<polygon id="prop-85" class="villa-shape" data-num="85" points="656.09,564.57 602.97,564.46 603.01,544.31 656.13,544.44 "></polygon>
-<polygon id="prop-84" class="villa-shape" data-num="84" points="709.21,564.68 656.09,564.57 656.13,544.44 709.24,544.56 "></polygon>
-<polygon id="prop-83" class="villa-shape" data-num="83" points="656.13,544.44 603.01,544.31 603.05,524.19 656.19,524.31 "></polygon>
-<rect id="prop-82" x="672.72" y="507.92" transform="matrix(2.3e-03 -1 1 2.3e-03 146.8 1216.0)" class="villa-shape" data-num="82" width="20.13" height="53.11"></rect>
-<polygon id="prop-81" class="villa-shape" data-num="81" points="656.18,516.8 603.07,516.69 603.12,496.61 656.22,496.71 "></polygon>
-<rect id="prop-80" x="672.66" y="480.2" transform="matrix(2.1e-03 -1 1 2.1e-03 174.5 1188.4)" class="villa-shape" data-num="80" width="20.1" height="53.14"></rect>
-<rect id="prop-79" x="619.68" y="460.07" transform="matrix(2.1e-03 -1 1 2.1e-03 141.8 1115.3)" class="villa-shape" data-num="79" width="20.13" height="53.11"></rect>
-<polygon id="prop-78" class="villa-shape" data-num="78" points="709.36,496.82 656.22,496.71 656.26,476.59 709.4,476.71 "></polygon>
-<rect id="prop-77" x="619.63" y="439.88" transform="matrix(2.1e-03 -1 1 2.1e-03 161.9 1095.2)" class="villa-shape" data-num="77" width="20.14" height="53.11"></rect>
-<rect id="prop-76" x="672.83" y="440.03" transform="matrix(2.3e-03 -1 1 2.3e-03 214.8 1148.4)" class="villa-shape" data-num="76" width="20.13" height="53.14"></rect>
-<rect id="prop-75" x="619.78" y="419.82" transform="matrix(2.3e-03 -1 1 2.3e-03 182.0 1075.2)" class="villa-shape" data-num="75" width="20.12" height="53.11"></rect>
-<polygon id="prop-74" class="villa-shape" data-num="74" points="709.45,456.58 656.3,456.45 656.34,436.34 656.35,436.33 709.49,436.44 "></polygon>
-<polygon id="prop-73" class="villa-shape" data-num="73" points="656.35,436.33 656.34,436.34 603.25,436.21 603.29,416.08 656.39,416.2 "></polygon>
-<rect id="prop-72" x="672.81" y="399.73" transform="matrix(2.1e-03 -1 1 2.1e-03 255.2 1108.3)" class="villa-shape" data-num="72" width="20.13" height="53.14"></rect>
-<rect id="prop-71" x="619.78" y="379.51" transform="matrix(2.1e-03 -1 1 2.1e-03 222.4 1035.0)" class="villa-shape" data-num="71" width="20.09" height="53.11"></rect>
-<polygon id="prop-70" class="villa-shape" data-num="70" points="709.53,416.31 656.39,416.2 656.44,396.11 709.58,396.21 "></polygon>
-<rect id="prop-69" x="619.9" y="359.45" transform="matrix(2.1e-03 -1 1 2.1e-03 242.6 1015.2)" class="villa-shape" data-num="69" width="20.13" height="53.11"></rect>
-<polygon id="prop-68" class="villa-shape" data-num="68" points="709.58,396.21 656.44,396.11 656.48,375.98 709.62,376.09 "></polygon>
-<rect id="prop-67" x="619.18" y="337.77" transform="matrix(2.1e-03 -1 1 2.1e-03 263.6 992.8)" class="villa-shape" data-num="67" width="20.12" height="53.11"></rect>
-<polygon id="prop-66" class="villa-shape" data-num="66" points="709.62,376.09 656.48,375.98 656.51,355.86 709.66,355.96 "></polygon>
-<rect id="prop-65" x="619.98" y="319.2" transform="matrix(2.1e-03 -1 1 2.1e-03 283.0 975.1)" class="villa-shape" data-num="65" width="20.13" height="53.11"></rect>
-<polygon id="prop-64" class="villa-shape" data-num="64" points="709.66,355.96 656.51,355.86 656.55,335.73 709.7,335.84 "></polygon>
-<polygon id="prop-63" class="villa-shape" data-num="63" points="499.6,685.04 446.5,684.93 446.55,664.8 499.65,664.91 "></polygon>
-<rect id="prop-62" x="516.17" y="648.53" transform="matrix(2.1e-03 -1 1 2.1e-03 -150.0 1199.9)" class="villa-shape" data-num="62" width="20.12" height="53.11"></rect>
-<polygon id="prop-61" class="villa-shape" data-num="61" points="499.65,664.91 446.55,664.8 446.59,644.69 499.69,644.78 "></polygon>
-<polygon id="prop-60" class="villa-shape" data-num="60" points="552.75,665.03 499.65,664.91 499.69,644.78 552.8,644.9 552.8,644.9 "></polygon>
-<polygon id="prop-59" class="villa-shape" data-num="59" points="499.69,644.78 446.59,644.69 446.63,624.55 499.75,624.66 "></polygon>
-<polygon id="prop-58" class="villa-shape" data-num="58" points="552.8,644.9 499.69,644.78 499.75,624.66 552.85,624.78 "></polygon>
-<polygon id="prop-57" class="villa-shape" data-num="57" points="499.75,624.66 446.63,624.55 446.66,604.43 499.79,604.53 "></polygon>
-<polygon id="prop-56" class="villa-shape" data-num="56" points="552.85,624.78 499.75,624.66 499.79,604.53 552.89,604.64 "></polygon>
-<polygon id="prop-55" class="villa-shape" data-num="55" points="499.79,604.53 446.66,604.43 446.7,584.33 499.83,584.44 "></polygon>
-<rect id="prop-54" x="516.38" y="568.03" transform="matrix(2.1e-03 -1 1 2.1e-03 -69.3 1119.8)" class="villa-shape" data-num="54" width="20.08" height="53.11"></rect>
-<rect id="prop-53" x="463.25" y="547.78" transform="matrix(2.3e-03 -1 1 2.3e-03 -102.1 1046.4)" class="villa-shape" data-num="53" width="20.13" height="53.13"></rect>
-<rect id="prop-52" x="516.31" y="547.86" transform="matrix(2.1e-03 -1 1 2.1e-03 -49.1 1099.6)" class="villa-shape" data-num="52" width="20.13" height="53.1"></rect>
-<polygon id="prop-51" class="villa-shape" data-num="51" points="499.88,564.31 446.76,564.19 446.79,544.06 499.93,544.18 "></polygon>
-<polygon id="prop-50" class="villa-shape" data-num="50" points="552.98,564.43 499.88,564.31 499.93,544.18 553.02,544.28 "></polygon>
-<rect id="prop-49" x="463.27" y="507.45" transform="matrix(2.1e-03 -1 1 2.1e-03 -61.7 1006.2)" class="villa-shape" data-num="49" width="20.13" height="53.14"></rect>
-<polygon id="prop-48" class="villa-shape" data-num="48" points="553.02,544.28 499.93,544.18 499.98,524.06 553.07,524.17 "></polygon>
-<rect id="prop-47" x="463.37" y="479.86" transform="matrix(2.1e-03 -1 1 2.1e-03 -34.0 978.8)" class="villa-shape" data-num="47" width="20.1" height="53.1"></rect>
-<rect id="prop-46" x="516.53" y="480.01" transform="matrix(2.3e-03 -1 1 2.3e-03 18.8 1032.0)" class="villa-shape" data-num="46" width="20.1" height="53.14"></rect>
-<polygon id="prop-45" class="villa-shape" data-num="45" points="500.01,496.45 446.9,496.33 446.95,476.22 453.58,476.23 500.05,476.34 "></polygon>
-<rect id="prop-44" x="516.49" y="459.85" transform="matrix(2.3e-03 -1 1 2.3e-03 38.9 1011.9)" class="villa-shape" data-num="44" width="20.12" height="53.14"></rect>
-<polygon id="prop-43" class="villa-shape" data-num="43" points="500.05,476.34 453.58,476.23 446.95,476.22 446.99,456.08 460.27,456.11 
-500.09,456.2 "></polygon>
-<polygon id="prop-42" class="villa-shape" data-num="42" points="553.19,476.44 553.19,476.45 500.05,476.34 500.09,456.2 553.23,456.31 "></polygon>
-<polygon id="prop-41" class="villa-shape" data-num="41" points="500.09,456.2 460.27,456.11 446.99,456.08 447.03,435.97 466.94,436.01 466.95,436 
-500.14,436.07 "></polygon>
-<rect id="prop-40" x="516.57" y="419.58" transform="matrix(2.1e-03 -1 1 2.1e-03 79.4 971.8)" class="villa-shape" data-num="40" width="20.13" height="53.14"></rect>
-<polygon id="prop-39" class="villa-shape" data-num="39" points="500.14,436.07 466.95,436 466.94,436.01 447.03,435.97 447.07,415.83 473.63,415.89 
-500.18,415.95 "></polygon>
-<polygon id="prop-38" class="villa-shape" data-num="38" points="553.27,436.18 553.27,436.18 500.14,436.07 500.18,415.95 553.31,416.06 "></polygon>
-<polygon id="prop-37" class="villa-shape" data-num="37" points="500.18,415.95 473.63,415.89 447.07,415.83 447.12,395.75 480.3,395.81 480.3,395.81 
-500.22,395.86 "></polygon>
-<polygon id="prop-36" class="villa-shape" data-num="36" points="553.31,416.06 500.18,415.95 500.22,395.86 553.36,395.96 "></polygon>
-<polygon id="prop-35" class="villa-shape" data-num="35" points="500.22,395.86 480.3,395.81 480.3,395.81 447.12,395.75 447.17,375.61 486.98,375.7 
-486.98,375.69 500.26,375.72 "></polygon>
-<polygon id="prop-34" class="villa-shape" data-num="34" points="553.36,395.96 500.22,395.86 500.26,375.72 553.41,375.84 "></polygon>
-<polygon id="prop-33" class="villa-shape" data-num="33" points="500.26,375.72 486.98,375.69 486.98,375.7 447.17,375.61 447.2,355.48 493.67,355.58 
-500.3,355.59 "></polygon>
-<polygon id="prop-32" class="villa-shape" data-num="32" points="553.41,375.84 500.26,375.72 500.3,355.59 553.44,355.71 "></polygon>
-<polygon id="prop-31" class="villa-shape" data-num="31" points="500.3,355.59 493.67,355.58 447.2,355.48 447.25,335.36 500.35,335.47 "></polygon>
-<polygon id="prop-30" class="villa-shape" data-num="30" points="553.44,355.71 500.3,355.59 500.35,335.47 553.48,335.59 "></polygon>
-<polygon id="prop-29" class="villa-shape" data-num="29" points="337.51,684.77 278.54,684.64 278.58,664.5 337.55,664.64 "></polygon>
-<polygon id="prop-28" class="villa-shape" data-num="28" points="396.5,684.9 337.51,684.77 337.55,664.64 396.54,664.78 "></polygon>
-<polygon id="prop-27" class="villa-shape" data-num="27" points="337.55,664.64 278.58,664.5 278.62,644.4 337.59,644.52 "></polygon>
-<polygon id="prop-26" class="villa-shape" data-num="26" points="396.54,664.78 337.55,664.64 337.59,644.52 396.58,644.64 396.59,644.65 "></polygon>
-<polygon id="prop-25" class="villa-shape" data-num="25" points="337.59,644.52 278.62,644.4 278.66,624.28 337.64,624.41 "></polygon>
-<polygon id="prop-24" class="villa-shape" data-num="24" points="396.58,644.64 337.59,644.52 337.64,624.41 396.63,624.52 "></polygon>
-<polygon id="prop-23" class="villa-shape" data-num="23" points="337.64,624.41 278.66,624.28 278.7,604.15 337.68,604.29 "></polygon>
-<polygon id="prop-22" class="villa-shape" data-num="22" points="396.63,624.52 337.64,624.41 337.68,604.29 396.68,604.43 "></polygon>
-<polygon id="prop-21" class="villa-shape" data-num="21" points="337.68,604.29 278.7,604.15 278.74,584.03 337.73,584.16 337.73,584.16 "></polygon>
-<polygon id="prop-20" class="villa-shape" data-num="20" points="396.68,604.43 337.68,604.29 337.73,584.16 337.73,584.16 396.73,584.28 "></polygon>
-<polygon id="prop-19" class="villa-shape" data-num="19" points="337.73,584.16 278.74,584.03 278.78,563.9 337.77,564.04 "></polygon>
-<polygon id="prop-18" class="villa-shape" data-num="18" points="396.73,584.28 337.73,584.16 337.77,564.04 396.77,564.17 "></polygon>
-<polygon id="prop-17" class="villa-shape" data-num="17" points="337.77,564.04 278.78,563.9 278.82,543.81 337.81,543.93 "></polygon>
-<polygon id="prop-16" class="villa-shape" data-num="16" points="396.77,564.17 337.77,564.04 337.81,543.93 396.81,544.03 "></polygon>
-<polygon id="prop-15" class="villa-shape" data-num="15" points="337.81,543.93 278.82,543.81 278.86,523.68 337.86,523.8 "></polygon>
-<polygon id="prop-14" class="villa-shape" data-num="14" points="396.81,544.03 337.81,543.93 337.86,523.8 396.86,523.92 "></polygon>
-<polygon id="prop-13" class="villa-shape" data-num="13" points="337.89,516.3 278.88,516.18 278.93,496.04 337.92,496.18 "></polygon>
-<polygon id="prop-12" class="villa-shape" data-num="12" points="396.89,516.41 337.89,516.3 337.92,496.18 396.93,496.32 "></polygon>
-<rect id="prop-11" x="298.36" y="456.5" transform="matrix(2.3e-03 -1 1 2.3e-03 -178.3 793.3)" class="villa-shape" data-num="11" width="20.13" height="59"></rect>
-<polygon id="prop-10" class="villa-shape" data-num="10" points="396.94,496.31 396.93,496.32 337.92,496.18 337.96,476.05 396.97,476.18 "></polygon>
-<polygon id="prop-9" class="villa-shape" data-num="9" points="337.96,476.05 278.96,475.92 279.01,455.82 338,455.7 338,455.93 "></polygon>
-<polygon id="prop-8" class="villa-shape" data-num="8" points="396.97,476.18 337.96,476.05 338,455.93 338,455.7 397.01,455.6 "></polygon>
-<polygon id="prop-7" class="villa-shape" data-num="7" points="338,455.7 279.01,455.82 279.05,434.29 338.05,435.11 338.05,435.81 "></polygon>
-<polygon id="prop-6" class="villa-shape" data-num="6" points="397.01,455.6 338,455.7 338.05,435.81 338.05,435.11 397.05,435.93 "></polygon>
-<polygon id="prop-5" class="villa-shape" data-num="5" points="338.05,435.11 279.05,434.29 279.09,415.57 338.09,415.7 "></polygon>
-<polygon id="prop-4" class="villa-shape" data-num="4" points="397.05,435.93 338.05,435.11 338.09,415.7 397.1,415.84 "></polygon>
-<polygon id="prop-3" class="villa-shape" data-num="3" points="397.1,415.84 338.09,415.7 338.09,415.69 338.1,415.69 338.13,395.55 397.13,395.71 
-"></polygon>
-<polygon id="prop-2" class="villa-shape" data-num="2" points="397.13,395.71 338.13,395.55 338.16,375.47 397.17,375.59 397.17,375.6 "></polygon>
-<rect id="prop-1" x="357.64" y="335.96" transform="matrix(1.9e-03 -1 1 1.9e-03 1.5 732.5)" class="villa-shape" data-num="1" width="20.13" height="59.01"></rect>
-</g>
-</svg></div>
+  <div id="map-box">
+<div id="map-loading" style="display:flex;align-items:center;justify-content:center;min-height:500px;flex-direction:column;gap:14px;background:#EDE8E0;border-radius:14px">
+  <div style="width:44px;height:44px;border:3px solid rgba(181,146,42,.2);border-top-color:#B5922A;border-radius:50%;animation:spin .8s linear infinite"></div>
+  <div style="font-size:13px;color:#78716C;font-family:Tajawal,sans-serif">جاري تحميل الخريطة…</div>
+</div>
+</div>
 </div>
 
 <!-- Tooltip -->
@@ -644,10 +501,12 @@ function onVillaClick(v) {
 }
 
 // ── SVG events ────────────────────────────────────────────────────────────
+function attachMapEvents(){
 document.querySelectorAll('.villa-shape').forEach(function(el) {
   var v = vm[parseInt(el.dataset.num, 10)]; if (!v) return;
   el.addEventListener('mouseenter', function(e) { showTip(e, v); });
-  el.addEventListener('mousemove',  moveTip);
+
+}  el.addEventListener('mousemove',  moveTip);
   el.addEventListener('mouseleave', function() { TIP.style.display='none'; });
   el.addEventListener('click',      function() { onVillaClick(v); });
 });
@@ -714,16 +573,29 @@ document.addEventListener('keydown', function(e) {
 
 // ── Init ──────────────────────────────────────────────────────────────────
 (function() {
-  // Load from localStorage if available
+  // Load data from localStorage
   try {
     var ls = JSON.parse(localStorage.getItem(LS)||'[]');
-    if (ls.length === 131) {
-      V = ls;
-      V.forEach(function(v) { vm[v.id] = v; });
-    }
+    if (ls.length === 131) { V = ls; V.forEach(function(v) { vm[v.id]=v; }); }
   } catch(e) {}
-  applyColors();
   updateStats();
+
+  // Load full SVG map asynchronously
+  fetch('map.svg?v=4')
+    .then(function(r) { return r.text(); })
+    .then(function(svgText) {
+      document.getElementById('map-box').innerHTML = svgText;
+      applyColors();
+      attachMapEvents();
+    })
+    .catch(function(err) {
+      document.getElementById('map-box').innerHTML =
+        '<div style="padding:40px;text-align:center;color:#C0392B;font-family:Tajawal,sans-serif">'+
+        '<div style="font-size:24px;margin-bottom:10px">⚠️</div>'+
+        'فشل تحميل الخريطة<br><small style="color:#aaa">'+err.message+'</small><br>'+
+        '<button onclick="location.reload()" style="margin-top:12px;padding:8px 20px;background:#B5922A;color:#fff;border:none;border-radius:6px;cursor:pointer">'+
+        'إعادة المحاولة</button></div>';
+    });
 })();
 </script>
 </body>
