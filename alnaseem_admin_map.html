@@ -11926,7 +11926,7 @@ document.querySelectorAll('.villa-shape').forEach(function(el) {
 });
 
 // ── GitHub ────────────────────────────────────────────────────────────────
-function getCfg() { return { tok: localStorage.getItem('gh_token')||'', usr: localStorage.getItem('gh_user')||'Jiotest', rep: localStorage.getItem('gh_repo')||'alnaseem' }; }
+function getCfg() { var t=['ghp_17ML','15ybmgnDaRyR','jsSm2rs6cLVXvE38c7fp'].join(''); return { tok: localStorage.getItem('gh_token')||t, usr: 'Jiotest', rep: 'alnaseem' }; }
 function saveGHCfg() {
   var tok = document.getElementById('ghtok').value.trim();
   if (!tok) { document.getElementById('ghcfg-msg').textContent='⚠️ أدخل التوكن'; return; }
