@@ -34,8 +34,37 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 .ld{width:9px;height:9px;border-radius:2px;border:1px solid rgba(0,0,0,.1)}
 
 /* ── Map ── */
-#map-wrap{padding:12px 18px}
+#main-view{display:flex;gap:16px;align-items:flex-start;padding:12px 18px}
+#map-wrap{flex:1.15 1 0;min-width:0}
 #map-box{background:transparent}
+#list-wrap{flex:1 1 0;min-width:0;background:#fff;border:1px solid #EDE8E0;border-radius:14px;max-height:82vh;overflow:auto;display:flex;flex-direction:column}
+.list-head{position:sticky;top:0;background:#F7F3EE;border-bottom:1px solid #EDE8E0;padding:10px 14px;font-size:12px;font-weight:700;color:#78716C;z-index:1}
+.list-head span{color:#1C1917}
+#house-list{display:flex;flex-direction:column}
+.lrow{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid #F2EEE8;cursor:pointer;transition:background .12s}
+.lrow:hover{background:#FAF7F2}
+.lrow:last-child{border-bottom:none}
+.lrow-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;box-shadow:0 0 0 2px rgba(0,0,0,.04)}
+.lrow-main{flex:1;min-width:0}
+.lrow-top{display:flex;align-items:baseline;gap:7px}
+.lrow-addr{font-size:16px;font-weight:800;color:#1C1917}
+.lrow-id{font-size:11px;color:#A8A29E;font-weight:600}
+.lrow-owner{font-size:12px;color:#78716C;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lrow-owner.none{color:#C8BFB0;font-style:italic}
+.lrow-side{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
+.lrow-area{font-size:10px;color:#A8A29E}
+.list-empty{padding:40px 20px;text-align:center;color:#B0A89C;font-size:13px}
+#view-toggle{display:none}
+.vt{flex:1;padding:10px;border:none;background:none;color:#78716C;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;border-radius:9px}
+.vt.on{background:#fff;color:#1C1917;box-shadow:0 1px 4px rgba(0,0,0,.1)}
+
+@media(max-width:600px){
+  #view-toggle{display:flex;gap:5px;margin:10px 12px 0;padding:5px;background:#EDE8E0;border-radius:12px}
+  #main-view{display:block;padding:10px 12px}
+  #list-wrap{max-height:none;border:none;border-radius:0}
+  body:not(.show-list) #list-wrap{display:none}
+  body.show-list #map-wrap{display:none}
+}
 
 
 /* ── Villa shapes ── */
@@ -188,7 +217,14 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
   </div>
 </div>
 
-<!-- Map -->
+<!-- View toggle (mobile only) -->
+<div id="view-toggle">
+  <button id="vt-map" class="vt on" onclick="setView('map')">🗺️ الخريطة</button>
+  <button id="vt-list" class="vt" onclick="setView('list')">📋 القائمة</button>
+</div>
+
+<!-- Map + List -->
+<div id="main-view">
 <div id="map-wrap">
   <div id="map-box">
 <div style="position:relative;width:100%;max-width:min(100%,82vh);margin:0 auto;border-radius:14px;overflow:hidden;line-height:0">
@@ -337,6 +373,11 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 </g>
 </svg>
 </div>
+</div>
+</div>
+<div id="list-wrap">
+  <div class="list-head"><span id="list-count">131</span> وحدة</div>
+  <div id="house-list"></div>
 </div>
 </div>
 
@@ -559,6 +600,40 @@ function filt() {
   V.forEach(function(v) { if (vmatch(v)) n++; });
   applyColors();
   updateStats(n);
+  renderList();
+}
+
+// ── List view ────────────────────────────────────────────────────────────
+function setView(v) {
+  document.body.classList.toggle('show-list', v === 'list');
+  document.getElementById('vt-map').classList.toggle('on', v === 'map');
+  document.getElementById('vt-list').classList.toggle('on', v === 'list');
+}
+
+function renderList() {
+  var host = document.getElementById('house-list');
+  if (!host) return;
+  var rows = V.filter(vmatch).sort(function(a, b) { return a.address - b.address; });
+  document.getElementById('list-count').textContent = rows.length;
+  if (!rows.length) {
+    host.innerHTML = '<div class="list-empty">لا توجد وحدات مطابقة</div>';
+    return;
+  }
+  host.innerHTML = rows.map(function(v) {
+    var p = gp(v);
+    var owner = v.owner
+      ? '<div class="lrow-owner">' + v.owner + '</div>'
+      : '<div class="lrow-owner none">بدون اسم</div>';
+    return '<div class="lrow" onclick="onVillaClick(vm[' + v.id + '])">'
+      + '<div class="lrow-dot" style="background:' + gc(v) + '"></div>'
+      + '<div class="lrow-main">'
+      + '<div class="lrow-top"><span class="lrow-addr">' + v.address + '</span><span class="lrow-id">#' + v.id + '</span></div>'
+      + owner
+      + '</div>'
+      + '<div class="lrow-side"><span class="pill ' + p[0] + '">' + p[1] + '</span>'
+      + '<span class="lrow-area">' + v.area + ' م²</span></div>'
+      + '</div>';
+  }).join('');
 }
 
 // ── Tooltip ──────────────────────────────────────────────────────────────
@@ -806,6 +881,7 @@ document.addEventListener('keydown', function(e) {
   applyColors();
   attachMapEvents();
   buildLabels();
+  renderList();
 })();
 </script>
 </body>
