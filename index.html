@@ -432,6 +432,13 @@ var V = [{"id":1,"address":3331,"owner":"صالح مهدي (أبو مهدي)","p
 var vm = {};
 V.forEach(function(v) { vm[v.id] = v; });
 
+// Business rule: a villa with no owner name is غير محدد (cannot be مسكون).
+function enforceOwnerStatus(v) {
+  if ((!v.owner || !String(v.owner).trim()) && v.status === 'sold') v.status = 'available';
+  return v;
+}
+V.forEach(enforceOwnerStatus);
+
 var isAdmin = false;
 var selId = null;
 
@@ -680,6 +687,7 @@ function saveVilla() {
   v.area          = parseFloat(document.getElementById('farea').value) || v.area;
   v.building_area = parseFloat(document.getElementById('fbarea').value) || v.building_area;
   v.notes         = document.getElementById('fn').value.trim();
+  enforceOwnerStatus(v);
   var i = V.findIndex(function(x) { return x.id === selId; });
   if (i !== -1) V[i] = v;
   try { localStorage.setItem(LS, JSON.stringify(V)); } catch(e) {}
@@ -790,7 +798,7 @@ document.addEventListener('keydown', function(e) {
   // Load data from localStorage
   try {
     var ls = JSON.parse(localStorage.getItem(LS)||'[]');
-    if (ls.length === 131) { V = ls; V.forEach(function(v) { vm[v.id]=v; }); }
+    if (ls.length === 131) { V = ls; V.forEach(function(v) { vm[v.id]=v; }); V.forEach(enforceOwnerStatus); }
   } catch(e) {}
   updateStats();
 
