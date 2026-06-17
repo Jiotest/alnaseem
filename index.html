@@ -441,17 +441,18 @@ function applyColors() {
     var v = vm[parseInt(el.dataset.num, 10)];
     if (!v) return;
     var ok = vmatch(v);
-    el.style.fill = gc(v);
-    el.classList.toggle('sel-s', v.id === selId);
-    el.style.stroke = v.id === selId ? '#F5C842' : 'rgba(255,255,255,.6)';
-    el.style.strokeWidth = v.id === selId ? '3' : '0.5';
     if (ok) {
+      el.style.fill = gc(v);
       el.style.opacity = v.id === selId ? '1' : '0.83';
       el.style.pointerEvents = '';
     } else {
-      el.style.opacity = '0';
+      el.style.fill = '#E8ECEF';
+      el.style.opacity = '0.55';
       el.style.pointerEvents = 'none';
     }
+    el.classList.toggle('sel-s', v.id === selId);
+    el.style.stroke = v.id === selId ? '#F5C842' : 'rgba(255,255,255,.6)';
+    el.style.strokeWidth = v.id === selId ? '3' : '0.5';
     var lb = document.getElementById('lbl-' + v.id);
     if (lb) lb.style.opacity = ok ? '' : '0';
   });
