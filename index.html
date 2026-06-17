@@ -648,10 +648,11 @@ document.querySelectorAll('.villa-shape').forEach(function(el) {
   var v = vm[parseInt(el.dataset.num, 10)]; if (!v) return;
   el.addEventListener('mouseenter', function(e) { showTip(e, v); });
 
-}  el.addEventListener('mousemove',  moveTip);
+  el.addEventListener('mousemove',  moveTip);
   el.addEventListener('mouseleave', function() { TIP.style.display='none'; });
   el.addEventListener('click',      function() { onVillaClick(v); });
 });
+}
 
 // ── GitHub ────────────────────────────────────────────────────────────────
 function getCfg() { var t=['ghp_17ML','15ybmgnDaRyR','jsSm2rs6cLVXvE38c7fp'].join(''); return { tok: localStorage.getItem('gh_token')||t, usr: 'Jiotest', rep: 'alnaseem' }; }
