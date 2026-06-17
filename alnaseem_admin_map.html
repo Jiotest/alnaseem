@@ -11959,7 +11959,7 @@ async function pushToGitHub() {
     if (!ri.ok) throw new Error('فشل جلب index.html');
     var info = await ri.json();
     var html = decodeURIComponent(escape(atob(info.content.replace(/\n/g,''))));
-    html = html.replace(/var V\s*=\s*\[[\s\S]*?\];/, 'var V = '+dj+';');/s, 'const V='+dj+';');
+    html = html.replace(/var V\s*=\s*\[[\s\S]*?\];/, 'var V = '+dj+';');
     var ok2 = await ghPut(c.tok,c.usr,c.rep,'index.html',html,'Sync view page');
     if (!ok2) throw new Error('فشل تحديث index.html');
     document.getElementById('ghi').textContent='✅'; document.getElementById('ght').textContent=' تم الحفظ!'; document.getElementById('ghsts').textContent='✓ محدّث';
