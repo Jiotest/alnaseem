@@ -468,6 +468,31 @@ function updateStats(n) {
 }
 
 // ── Cell labels (villa id + house number) ────────────────────────────────
+// Composes an element's own transform with all ancestor transforms up to the
+// root <svg>, yielding true viewBox coordinates. Unlike getCTM(), this does
+// NOT depend on the rendered pixel size, so labels stay correctly positioned
+// even on mobile before the background image has finished loading.
+function elementToViewBox(el) {
+  function mul(A, B) {
+    return {
+      a: A.a * B.a + A.c * B.b, b: A.b * B.a + A.d * B.b,
+      c: A.a * B.c + A.c * B.d, d: A.b * B.c + A.d * B.d,
+      e: A.a * B.e + A.c * B.f + A.e, f: A.b * B.e + A.d * B.f + A.f
+    };
+  }
+  var M = { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 };
+  var n = el;
+  while (n && n.tagName !== 'svg') {
+    var list = n.transform && n.transform.baseVal;
+    if (list && list.numberOfItems) {
+      var m = list.consolidate().matrix;
+      M = mul({ a: m.a, b: m.b, c: m.c, d: m.d, e: m.e, f: m.f }, M);
+    }
+    n = n.parentNode;
+  }
+  return M;
+}
+
 function buildLabels() {
   var first = document.querySelector('.villa-shape');
   if (!first) return;
@@ -481,10 +506,10 @@ function buildLabels() {
   svg.appendChild(g);
   document.querySelectorAll('.villa-shape').forEach(function(el) {
     var v = vm[parseInt(el.dataset.num, 10)]; if (!v) return;
-    var bb = el.getBBox(), m = el.getCTM();
+    var bb = el.getBBox(), m = elementToViewBox(el);
     var cx = bb.x + bb.width / 2, cy = bb.y + bb.height / 2;
-    var px = m ? (m.a * cx + m.c * cy + m.e) : cx;
-    var py = m ? (m.b * cx + m.d * cy + m.f) : cy;
+    var px = m.a * cx + m.c * cy + m.e;
+    var py = m.b * cx + m.d * cy + m.f;
     var t = document.createElementNS(NS, 'text');
     t.setAttribute('id', 'lbl-' + v.id);
     t.setAttribute('x', px.toFixed(2));
