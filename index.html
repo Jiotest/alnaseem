@@ -43,6 +43,9 @@ body{font-family:'Tajawal',sans-serif;background:#F7F3EE;color:#1C1917;direction
 .villa-shape:hover{stroke:#222;stroke-width:2;opacity:1}
 .villa-shape.dimmed{opacity:.06;pointer-events:none}
 .villa-shape.sel-s{stroke:#F5C842;stroke-width:3;opacity:1}
+.cell-lbl{fill:#fff;paint-order:stroke;stroke:rgba(0,0,0,.6);stroke-width:.6px;font-family:system-ui,'Segoe UI',sans-serif;transition:opacity .15s}
+.cl-id{font-size:5px;font-weight:600;opacity:.92}
+.cl-no{font-size:8.5px;font-weight:800}
 
 /* ── Pills ── */
 .pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;white-space:nowrap}
@@ -445,6 +448,40 @@ function updateStats(n) {
   document.getElementById('su').textContent = u;
 }
 
+// ── Cell labels (villa id + house number) ────────────────────────────────
+function buildLabels() {
+  var first = document.querySelector('.villa-shape');
+  if (!first) return;
+  var svg = first.ownerSVGElement;
+  var NS = 'http://www.w3.org/2000/svg';
+  var old = document.getElementById('villa-labels');
+  if (old) old.remove();
+  var g = document.createElementNS(NS, 'g');
+  g.setAttribute('id', 'villa-labels');
+  g.setAttribute('pointer-events', 'none');
+  svg.appendChild(g);
+  document.querySelectorAll('.villa-shape').forEach(function(el) {
+    var v = vm[parseInt(el.dataset.num, 10)]; if (!v) return;
+    var bb = el.getBBox(), m = el.getCTM();
+    var cx = bb.x + bb.width / 2, cy = bb.y + bb.height / 2;
+    var px = m ? (m.a * cx + m.c * cy + m.e) : cx;
+    var py = m ? (m.b * cx + m.d * cy + m.f) : cy;
+    var t = document.createElementNS(NS, 'text');
+    t.setAttribute('id', 'lbl-' + v.id);
+    t.setAttribute('x', px.toFixed(2));
+    t.setAttribute('y', py.toFixed(2));
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('class', 'cell-lbl');
+    var a = document.createElementNS(NS, 'tspan');
+    a.setAttribute('x', px.toFixed(2)); a.setAttribute('dy', '-1.4');
+    a.setAttribute('class', 'cl-id'); a.textContent = '#' + v.id;
+    var b = document.createElementNS(NS, 'tspan');
+    b.setAttribute('x', px.toFixed(2)); b.setAttribute('dy', '8');
+    b.setAttribute('class', 'cl-no'); b.textContent = v.address;
+    t.appendChild(a); t.appendChild(b); g.appendChild(t);
+  });
+}
+
 // ── Filter ───────────────────────────────────────────────────────────────
 function filt() {
   var q = (document.getElementById('sq').value || '').trim().toLowerCase();
@@ -458,6 +495,8 @@ function filt() {
       || (s==='unocc'   && v.status==='reserved')
       || (s==='und'     && (!v.status||v.status==='available'));
     el.classList.toggle('dimmed', !(mq && ms));
+    var lb = document.getElementById('lbl-' + v.id);
+    if (lb) lb.style.opacity = (mq && ms) ? '' : '0';
     if (mq && ms) n++;
   });
   updateStats(n);
@@ -594,6 +633,7 @@ function saveVilla() {
   try { localStorage.setItem(LS, JSON.stringify(V)); } catch(e) {}
   applyColors();
   updateStats();
+  buildLabels();
   var fl = document.getElementById('ep-flash');
   fl.classList.add('show');
   setTimeout(function() { fl.classList.remove('show'); }, 2000);
@@ -607,7 +647,7 @@ function clearVilla() {
   var i = V.findIndex(function(x) { return x.id === selId; });
   if (i !== -1) V[i] = v;
   try { localStorage.setItem(LS, JSON.stringify(V)); } catch(e) {}
-  applyColors(); updateStats();
+  applyColors(); updateStats(); buildLabels();
   openEditPanel(v);
   toast('تم مسح الوحدة ' + v.address);
 }
@@ -706,6 +746,7 @@ document.addEventListener('keydown', function(e) {
     // SVG is inline — apply colors and events directly
   applyColors();
   attachMapEvents();
+  buildLabels();
 })();
 </script>
 </body>
