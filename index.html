@@ -1036,12 +1036,12 @@ function setupMapZoom() {
   }, true);
 
   // Touch: 1-finger pan, 2-finger pinch
-  var pinchDist = 0, pinchS = 1, panX, panY;
+  var pinchDist = 0, pinchS = 1, panX, panY, touchMoved = 0, lastTap = 0, lastTapX = 0, lastTapY = 0;
   function dist(a, b) { return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY); }
   frame.addEventListener('touchstart', function(e) {
     zoom.style.transition = 'none';
     if (e.touches.length === 2) { pinchDist = dist(e.touches[0], e.touches[1]); pinchS = s; }
-    else if (e.touches.length === 1) { panX = e.touches[0].clientX; panY = e.touches[0].clientY; }
+    else if (e.touches.length === 1) { panX = e.touches[0].clientX; panY = e.touches[0].clientY; touchMoved = 0; }
   }, { passive: false });
   frame.addEventListener('touchmove', function(e) {
     var r = frame.getBoundingClientRect();
@@ -1052,11 +1052,26 @@ function setupMapZoom() {
       var cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - r.top;
       tx = cx - (cx - tx) * (ns / s); ty = cy - (cy - ty) * (ns / s);
       s = ns; clamp(); apply(); frame.classList.toggle('zoomed', s > MIN);
-    } else if (e.touches.length === 1 && s > MIN) {
-      e.preventDefault();
+    } else if (e.touches.length === 1) {
       var dx = e.touches[0].clientX - panX, dy = e.touches[0].clientY - panY;
       panX = e.touches[0].clientX; panY = e.touches[0].clientY;
-      tx += dx; ty += dy; clamp(); apply();
+      touchMoved += Math.abs(dx) + Math.abs(dy);
+      if (s > MIN) { e.preventDefault(); tx += dx; ty += dy; clamp(); apply(); }
+    }
+  }, { passive: false });
+
+  // Double-tap to zoom in (on empty map area; tapping a villa opens its details)
+  frame.addEventListener('touchend', function(e) {
+    if (e.touches.length > 0 || touchMoved > 12) { lastTap = 0; return; }
+    if (e.target && e.target.classList && e.target.classList.contains('villa-shape')) { lastTap = 0; return; }
+    var t = e.changedTouches[0], r = frame.getBoundingClientRect();
+    var x = t.clientX - r.left, y = t.clientY - r.top, now = Date.now();
+    if (now - lastTap < 300 && Math.abs(x - lastTapX) < 32 && Math.abs(y - lastTapY) < 32) {
+      e.preventDefault();
+      zoomAt(1.8, x, y, true);
+      lastTap = 0;
+    } else {
+      lastTap = now; lastTapX = x; lastTapY = y;
     }
   }, { passive: false });
 
